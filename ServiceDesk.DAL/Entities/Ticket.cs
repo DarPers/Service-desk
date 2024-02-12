@@ -1,21 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using ServiceDesk.DAL.Enums;
+﻿using ServiceDesk.DAL.Enums;
 
-namespace ServiceDesk.DAL.Entities
+namespace ServiceDesk.DAL.Entities;
+
+internal class Ticket
 {
-    internal class Ticket
-    {
-        public Guid Id { get; set; }
+    public Guid Id { get; set; }
 
-        public Guid UserId { get; set; }
+    public string Name { get; set; } = string.Empty;
 
-        public User User { get; set; } = null!;
+    public string Description { get; set; } = string.Empty;
 
-        public Status Status { get; set; }
+    public Guid UserId { get; set; }
 
-        public DateTime DateTimeCreated { get; set; }
+    public User User { get; set; } = null!;
 
-        public DateTime DateTimeAccepted { get; set; }
-    }
+    public Status Status { get; set; }
+
+    public DateTime DateTimeCreated { get; set; }
+
+    public DateTime DateTimeAccepted { get; set; }
 }

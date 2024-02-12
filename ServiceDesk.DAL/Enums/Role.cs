@@ -1,8 +1,9 @@
-﻿namespace ServiceDesk.DAL.Enums
+﻿namespace ServiceDesk.DAL.Enums;
+
+internal enum Role
 {
-    internal enum Role
-    {
-        OperationAdministrator = 1,
-        User = 2,
-    }
+    None = 0,
+    OperationAdministrator = 1,
+    User = 2,
+    SystemAdmin = 3,
 }

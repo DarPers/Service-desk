@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using ServiceDesk.DAL.Enums;
+﻿using ServiceDesk.DAL.Enums;
 
 namespace ServiceDesk.DAL.Entities
 {
