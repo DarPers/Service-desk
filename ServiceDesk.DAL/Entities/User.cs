@@ -5,20 +5,16 @@ namespace ServiceDesk.DAL.Entities
 {
     internal class User
     {
-        [Key]
         public Guid Id { get; set; }
 
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = string.Empty;
 
-        public string LastName { get; set; }
+        public string LastName { get; set; } = string.Empty;
 
-        [Required]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
-        [Required]
-        public string Password { get; set; }
+        public string Password { get; set; } = string.Empty;
 
-        [Required]
         public Role Role { get; set; }
     }
 }

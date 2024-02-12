@@ -6,16 +6,12 @@ namespace ServiceDesk.DAL.Entities
 {
     internal class Ticket
     {
-        [Key]
         public Guid Id { get; set; }
 
-        [Required]
-        public Guid CustomerId { get; set; }
+        public Guid UserId { get; set; }
 
-        [ForeignKey("CustomerId")]
-        public User Customer { get; set; }
+        public User User { get; set; } = null!;
 
-        [Required]
         public Status Status { get; set; }
 
         public DateTime DateTimeCreated { get; set; }

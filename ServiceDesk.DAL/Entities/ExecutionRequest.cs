@@ -5,19 +5,14 @@ namespace ServiceDesk.DAL.Entities
 {
     internal class ExecutionRequest
     {
-        [Key]
         public Guid Id { get; set; }
 
-        [Required]
         public Guid TicketId { get; set; }
 
-        [ForeignKey("TicketId")]
-        public Ticket Ticket { get; set; }
+        public Ticket Ticket { get; set; } = null!;
 
-        [Required]
         public Guid ExecutorId { get; set; }
 
-        [ForeignKey("ExecutorId")]
-        public User Executor { get; set; }
+        public User Executor { get; set; } = null!;
     }
 }
