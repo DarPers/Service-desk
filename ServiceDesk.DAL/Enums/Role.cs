@@ -1,6 +1,6 @@
 ﻿namespace ServiceDesk.DAL.Enums;
 
-internal enum Role
+public enum Role
 {
     None = 0,
     OperationAdministrator = 1,

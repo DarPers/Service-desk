@@ -1,9 +1,7 @@
 ﻿namespace ServiceDesk.DAL.Entities;
 
-internal class ExecutionRequest
+public class ExecutionRequest : BaseEntity
 {
-    public Guid Id { get; set; }
-
     public Guid TicketId { get; set; }
 
     public Ticket Ticket { get; set; } = null!;

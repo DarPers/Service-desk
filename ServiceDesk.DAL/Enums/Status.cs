@@ -1,10 +1,9 @@
-﻿namespace ServiceDesk.DAL.Enums
+﻿namespace ServiceDesk.DAL.Enums;
+
+public enum Status
 {
-    internal enum Status
-    {
-        None = 0,
-        Free = 1,
-        InProgress = 2,
-        Ready = 3,
-    }
+    None = 0,
+    Free = 1,
+    InProgress = 2,
+    Ready = 3,
 }
