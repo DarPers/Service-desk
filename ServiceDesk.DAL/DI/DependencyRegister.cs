@@ -15,9 +15,7 @@ public static class DependencyRegister
         serviceCollection.AddDbContext<ApplicationDbContext>(option =>
             option.UseNpgsql(configuration.GetConnectionString("PostgresSQLConnectionString")));
 
-        serviceCollection.AddScoped<IGenericRepository<User>, GenericRepository<User>>();
-        serviceCollection.AddScoped<IGenericRepository<Ticket>, GenericRepository<Ticket>>();
-        serviceCollection.AddScoped<IGenericRepository<ExecutionRequest>, GenericRepository<ExecutionRequest>>();
+        serviceCollection.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
         return serviceCollection;
     }
