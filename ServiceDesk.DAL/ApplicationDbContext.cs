@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ServiceDesk.DAL.Entities;
 
-namespace ServiceDesk.DAL.Data;
+namespace ServiceDesk.DAL;
 public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
