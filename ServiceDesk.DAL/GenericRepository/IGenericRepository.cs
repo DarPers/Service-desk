@@ -3,7 +3,7 @@ using ServiceDesk.DAL.Entities;
 
 namespace ServiceDesk.DAL.GenericRepository;
 
-internal interface IGenericRepository<TEntity> where TEntity : BaseEntity
+public interface IGenericRepository<TEntity> where TEntity : BaseEntity
 {
     Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken);
 
