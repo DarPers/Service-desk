@@ -1,8 +1,7 @@
 ﻿using ServiceDesk.Domain.Enums;
 
-namespace ServiceDesk.DAL.Entities;
-
-public class User : BaseEntity
+namespace ServiceDesk.BLL.Models;
+public class User : BaseModel
 {
     public string FirstName { get; set; } = string.Empty;
 
