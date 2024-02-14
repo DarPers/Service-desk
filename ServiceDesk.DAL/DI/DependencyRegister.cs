@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ServiceDesk.DAL.Data;
-using ServiceDesk.DAL.Entities;
 using ServiceDesk.DAL.GenericRepository;
 
 namespace ServiceDesk.DAL.DI;
