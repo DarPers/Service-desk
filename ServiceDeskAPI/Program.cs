@@ -1,5 +1,4 @@
 using ServiceDesk.BLL.DI;
-using ServiceDesk.DAL.DI;
 
 var builder = WebApplication.CreateBuilder(args);
 

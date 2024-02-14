@@ -1,4 +1,4 @@
-﻿namespace ServiceDesk.DAL.Enums;
+﻿namespace ServiceDesk.Domain.Enums;
 
 public enum Role
 {
