@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ServiceDesk.BLL.Models;
 using ServiceDesk.DAL.Entities;
 
 namespace ServiceDesk.BLL.Mapping;
@@ -7,8 +8,8 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<User, Models.User>().ReverseMap();
-        CreateMap<Ticket, Models.Ticket>().ReverseMap();
-        CreateMap<ExecutionRequest, Models.ExecutionRequest>().ReverseMap();
+        CreateMap<User, UserModel>().ReverseMap();
+        CreateMap<Ticket, TicketModel>().ReverseMap();
+        CreateMap<ExecutionRequest, ExecutionRequestModel>().ReverseMap();
     }
 }

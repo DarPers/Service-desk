@@ -2,7 +2,7 @@
 
 namespace ServiceDesk.BLL.Models;
 
-public class Ticket : BaseModel
+public class TicketModel : BaseModel
 {
     public string Name { get; set; } = string.Empty;
 
@@ -10,7 +10,7 @@ public class Ticket : BaseModel
 
     public Guid UserId { get; set; }
 
-    public User User { get; set; } = null!;
+    public UserModel UserModel { get; set; } = null!;
 
     public Status Status { get; set; }
 

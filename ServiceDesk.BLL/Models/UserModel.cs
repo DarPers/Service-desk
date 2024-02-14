@@ -1,7 +1,7 @@
 ﻿using ServiceDesk.Domain.Enums;
 
 namespace ServiceDesk.BLL.Models;
-public class User : BaseModel
+public class UserModel : BaseModel
 {
     public string FirstName { get; set; } = string.Empty;
 
