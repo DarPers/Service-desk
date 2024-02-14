@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ServiceDesk.DAL\ServiceDesk.DAL.csproj" />
+    <ProjectReference Include="..\ServiceDesk.BLL\ServiceDesk.BLL.csproj" />
   </ItemGroup>
 
 </Project>
