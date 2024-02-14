@@ -1,8 +1,8 @@
 ﻿using ServiceDesk.Domain.Enums;
 
-namespace ServiceDesk.DAL.Entities;
+namespace ServiceDesk.BLL.Models;
 
-public class Ticket : BaseEntity
+public class Ticket : BaseModel
 {
     public string Name { get; set; } = string.Empty;
 
