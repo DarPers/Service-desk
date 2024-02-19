@@ -14,6 +14,9 @@ public static class DependencyRegisterBll
         serviceCollection.AddDataAccessLevelServices(configuration);
         serviceCollection.AddAutoMapper(typeof(MappingProfile));
         serviceCollection.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
+        serviceCollection.AddScoped<ITicketService, TicketService>();
+        serviceCollection.AddScoped<IUserService, UserService>();
+        serviceCollection.AddScoped<IExecutionRequestService, ExecutionRequestService>();
 
         return serviceCollection;
     }
