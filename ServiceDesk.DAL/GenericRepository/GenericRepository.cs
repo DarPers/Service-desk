@@ -49,6 +49,12 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         return await _entities.FindAsync(predicate, cancellationToken);
     }
 
+    public async Task<TEntity?> GetEntityByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        Func<TEntity, bool> predicate = p => p.Id == id;
+        return await _entities.FindAsync(predicate, cancellationToken);
+    }
+
     public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties)
     {
         return Include(includeProperties).ToList();
