@@ -36,13 +36,11 @@ public class TicketServiceTests
     {
         //Arrange
         var id = new Guid();
-        var cancellationToken = new CancellationToken();
         var ticket = Substitute.For<Ticket?>();
-
-        _ticketRepository.GetEntityByIdAsync(id, cancellationToken).Returns(ticket);
+        _ticketRepository.GetEntityByIdAsync(id, default).Returns(ticket);
 
         //Act
-        var result = await _ticketService.GetModelByIdAsync(id, cancellationToken);
+        var result = await _ticketService.GetModelByIdAsync(id, default);
 
         //Assert
         result.Should().NotBeNull();
@@ -50,16 +48,14 @@ public class TicketServiceTests
     }
 
     [Fact]
-    public async Task GetModelById_InvalidId_ReturnBad()
+    public async Task GetModelById_InvalidId_ReturnNull()
     {
         //Arrange
         var id = new Guid();
-        var cancellationToken = new CancellationToken();
-
-        _ticketRepository.GetEntityByIdAsync(id, cancellationToken).ReturnsNull();
+        _ticketRepository.GetEntityByIdAsync(id, default).ReturnsNull();
 
         //Act
-        var result = await _ticketService.GetModelByIdAsync(id, cancellationToken);
+        var result = await _ticketService.GetModelByIdAsync(id, default);
 
         //Assert
         result.Should().BeNull();
@@ -69,19 +65,14 @@ public class TicketServiceTests
     public async Task GetTicketStatus_ValidId_ReturnStatus()
     {
         //Arrange
-
         var id = new Guid();
-        var cancellationToken = new CancellationToken();
         var ticket = Substitute.For<Ticket>();
-
-        _ticketRepository.GetEntityByIdAsync(id, cancellationToken).Returns(ticket);
+        _ticketRepository.GetEntityByIdAsync(id, default).Returns(ticket);
 
         //Act
-
-        var result = await _ticketService.GetTicketStatus(id, cancellationToken);
+        var result = await _ticketService.GetTicketStatus(id, default);
 
         //Assert
-
         result.Should().Be(Status.None);
     }
 
@@ -90,11 +81,10 @@ public class TicketServiceTests
     {
         //Arrange
         var id = new Guid();
-        var cancellationToken = new CancellationToken();
-        _ticketRepository.GetEntityByIdAsync(id, cancellationToken).ReturnsNull();
+        _ticketRepository.GetEntityByIdAsync(id, default).ReturnsNull();
 
         //Act
-        var action = async () => await _ticketService.GetTicketStatus(id, cancellationToken);
+        var action = async () => await _ticketService.GetTicketStatus(id, default);
 
         //Assert
         var exception = await Assert.ThrowsAsync<NullReferenceException>(action);
@@ -102,50 +92,46 @@ public class TicketServiceTests
     }
 
     [Fact]
-    public async Task GetAll_ReturnListOfModels()
+    public async Task GetAll_WhiteData_ReturnListOfModels()
     {
         //Arrange
         var entities = Substitute.For<IEnumerable<Ticket>>();
-        var cancellationToken = new CancellationToken();
-
-        _ticketRepository.GetAllAsync(cancellationToken).Returns(entities);
+        _ticketRepository.GetAllAsync(default).Returns(entities);
 
         //Act
-        var result = await _ticketService.GetAllAsync(cancellationToken);
+        var result = await _ticketService.GetAllAsync(default);
 
         //Assert
         result.Should().BeOfType<List<TicketModel>>();
     }
 
     [Fact]
-    public async Task GetListWhere_ReturnListOfModels()
+    public async Task GetListByPredicate_WhiteData_ReturnListOfModels()
     {
         //Arrange
         var entities = Substitute.For<IEnumerable<Ticket>>();
-        var cancellationToken = new CancellationToken();
         var predicate = Arg.Any<Expression<Func<Ticket, bool>>>();
 
-        _ticketRepository.GetEntitiesByPredicateAsync(predicate, cancellationToken).Returns(entities);
+        _ticketRepository.GetEntitiesByPredicateAsync(predicate, default).Returns(entities);
 
         //Act
-        var result = await _ticketService.GetListWhereAsync(predicate, cancellationToken);
+        var result = await _ticketService.GetListByPredicateAsync(predicate, default);
 
         //Assert
         result.Should().BeOfType<List<TicketModel>>();
     }
 
     [Fact]
-    public async Task CreateModel_ShouldExecuteCreateModel()
+    public async Task CreateModel_WhiteData_ShouldExecuteCreateModel()
     {
         //Arrange
         var ticketModel = Substitute.For<TicketModel>();
-        var cancellationToken = new CancellationToken();
 
         //Act
-        await _ticketService.CreateModelAsync(ticketModel, cancellationToken);
+        await _ticketService.CreateModelAsync(ticketModel, default);
 
         //Assert
-        await _ticketRepository.Received().AddEntityAsync(Arg.Any<Ticket>(), cancellationToken);
+        await _ticketRepository.Received().AddEntityAsync(Arg.Any<Ticket>(), default);
     }
 
     [Fact]
@@ -153,16 +139,14 @@ public class TicketServiceTests
     {
         //Arrange
         var id = new Guid();
-        var cancellationToken = new CancellationToken();
         var entity = Substitute.For<Ticket>();
-
-        _ticketRepository.GetEntityByIdAsync(id, cancellationToken).Returns(entity);
+        _ticketRepository.GetEntityByIdAsync(id, default).Returns(entity);
 
         //Act
-        await _ticketService.DeleteModelAsync(id, cancellationToken);
+        await _ticketService.DeleteModelAsync(id, default);
 
         //Assert
-        await _ticketRepository.Received().DeleteEntityAsync(entity, cancellationToken);
+        await _ticketRepository.Received().DeleteEntityAsync(entity, default);
     }
 
     [Fact]
@@ -170,15 +154,13 @@ public class TicketServiceTests
     {
         //Arrange
         var id = new Guid();
-        var cancellationToken = new CancellationToken();
-
-        _ticketRepository.GetEntityByIdAsync(id, cancellationToken).ReturnsNull();
+        _ticketRepository.GetEntityByIdAsync(id, default).ReturnsNull();
 
         //Act
-        await _ticketService.DeleteModelAsync(id, cancellationToken);
+        await _ticketService.DeleteModelAsync(id, default);
 
         //Assert
-        await _ticketRepository.DidNotReceive().DeleteEntityAsync(Arg.Any<Ticket>(), cancellationToken);
+        await _ticketRepository.DidNotReceive().DeleteEntityAsync(Arg.Any<Ticket>(), default);
     }
 
     [Fact]
@@ -186,16 +168,15 @@ public class TicketServiceTests
     {
         //Arrange
         var id = new Guid();
-        var cancellationToken = new CancellationToken();
         var ticketModel = Substitute.For<TicketModel>();
 
-        _ticketRepository.GetEntityByIdAsync(id, cancellationToken).ReturnsNull();
+        _ticketRepository.GetEntityByIdAsync(id, default).ReturnsNull();
 
         //Act
-        await _ticketService.UpdateModelAsync(ticketModel, cancellationToken);
+        await _ticketService.UpdateModelAsync(ticketModel, default);
 
         //Assert
-        await _ticketRepository.DidNotReceive().UpdateEntityAsync(Arg.Any<Ticket>(), cancellationToken);
+        await _ticketRepository.DidNotReceive().UpdateEntityAsync(Arg.Any<Ticket>(), default);
     }
 
     [Fact]
@@ -203,16 +184,14 @@ public class TicketServiceTests
     {
         //Arrange
         var id = new Guid();
-        var cancellationToken = new CancellationToken();
         var ticket = Substitute.For<Ticket>();
         var ticketModel = Substitute.For<TicketModel>();
-
-        _ticketRepository.GetEntityByIdAsync(id, cancellationToken).Returns(ticket);
+        _ticketRepository.GetEntityByIdAsync(id, default).Returns(ticket);
 
         //Act
-        await _ticketService.UpdateModelAsync(ticketModel, cancellationToken);
+        await _ticketService.UpdateModelAsync(ticketModel, default);
 
         //Assert
-        await _ticketRepository.Received().UpdateEntityAsync(Arg.Any<Ticket>(), cancellationToken);
+        await _ticketRepository.Received().UpdateEntityAsync(Arg.Any<Ticket>(), default);
     }
 }
