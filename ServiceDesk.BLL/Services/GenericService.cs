@@ -25,7 +25,7 @@ public class GenericService<TModel, TEntity> : IGenericService<TModel, TEntity> 
 
     public async Task DeleteModelAsync(Guid id, CancellationToken cancellationToken)
     {
-        var entity = await _genericRepository.GetEntityById(id, cancellationToken);
+        var entity = await _genericRepository.GetEntityByIdAsync(id, cancellationToken);
 
         if (entity != null)
         {
@@ -47,7 +47,7 @@ public class GenericService<TModel, TEntity> : IGenericService<TModel, TEntity> 
 
     public async Task<TModel?> GetModelByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var entity = await _genericRepository.GetEntityById(id, cancellationToken);
+        var entity = await _genericRepository.GetEntityByIdAsync(id, cancellationToken);
 
         if (entity == null)
         {
@@ -59,7 +59,7 @@ public class GenericService<TModel, TEntity> : IGenericService<TModel, TEntity> 
 
     public async Task UpdateModelAsync(TModel model, CancellationToken cancellationToken)
     {
-        var entity = await _genericRepository.GetEntityById(model.Id, cancellationToken);
+        var entity = await _genericRepository.GetEntityByIdAsync(model.Id, cancellationToken);
 
         if (entity == null)
         {
