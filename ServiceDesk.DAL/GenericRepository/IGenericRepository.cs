@@ -17,6 +17,8 @@ public interface IGenericRepository<TEntity> where TEntity : BaseEntity
 
     Task DeleteEntityAsync(TEntity entity, CancellationToken cancellationToken);
 
+    Task<TEntity?> GetEntityByIdAsync(Guid id, CancellationToken cancellationToken);
+
     IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties);
 
     IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate,
