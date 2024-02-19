@@ -14,7 +14,7 @@ public interface IGenericService<TModel, TEntity> where TModel : BaseModel where
 
     public Task<IEnumerable<TModel>> GetAllAsync(CancellationToken cancellationToken);
 
-    public Task<IEnumerable<TModel>> GetListWhereAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
+    public Task<IEnumerable<TModel>> GetListByPredicateAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
 
     public Task UpdateModelAsync(TModel model, CancellationToken cancellationToken);
 }

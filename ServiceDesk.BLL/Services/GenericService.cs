@@ -39,7 +39,7 @@ public class GenericService<TModel, TEntity> : IGenericService<TModel, TEntity> 
         return _mapper.Map<IEnumerable<TModel>>(entities);
     }
 
-    public async Task<IEnumerable<TModel>> GetListWhereAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
+    public async Task<IEnumerable<TModel>> GetListByPredicateAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
     {
         var entities = await _genericRepository.GetEntitiesByPredicateAsync(predicate, cancellationToken);
         return _mapper.Map<IEnumerable<TModel>>(entities);
