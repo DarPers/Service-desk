@@ -1,4 +1,5 @@
 using ServiceDesk.BLL.DI;
+using ServiceDeskAPI.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddBusinessLogicLevelServices(builder.Configuration);
+builder.Services.AddAutoMapper(typeof(MappingViewProfile));
 
 var app = builder.Build();
 

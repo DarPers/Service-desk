@@ -10,9 +10,9 @@ public class TicketModel : BaseModel
 
     public Guid UserId { get; set; }
 
-    public UserModel UserModel { get; set; } = null!;
+    public UserModel? UserModel { get; set; }
 
     public Status Status { get; set; }
-
-    public DateTime DateTimeAccepted { get; set; }
+    
+    public DateTime? DateTimeAccepted { get; set; }
 }
