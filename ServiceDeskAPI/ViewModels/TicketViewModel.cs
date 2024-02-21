@@ -1,4 +1,5 @@
-﻿using ServiceDesk.Domain.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using ServiceDesk.Domain.Enums;
 
 namespace ServiceDeskAPI.ViewModels;
 
@@ -10,9 +11,9 @@ public class TicketViewModel
 
     public string Description { get; set; } = string.Empty;
 
-    public UserViewModel UserViewModel { get; set; } = null!;
+    public Guid UserId { get; set; }
 
-    public Status Status { get; set; }
+    public Status Status { get; set; } 
 
     public DateTime DateTimeAccepted { get; set; }
 

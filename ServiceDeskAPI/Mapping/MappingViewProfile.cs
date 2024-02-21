@@ -16,6 +16,7 @@ public class MappingViewProfile : Profile
         ConfigureMapping(CreateMap<TicketCreationViewModel, TicketModel>()
             .ForMember(dest => dest.Status, opt => opt.MapFrom(o => Status.Free)));
         ConfigureMapping(CreateMap<ExecutionRequestCreationViewModel, ExecutionRequestModel>());
+        CreateMap<TicketUpdatingViewModel, TicketModel>();
     }
 
     private static void ConfigureMapping<TSource, TDestination> (IMappingExpression<TSource, TDestination> mappingExpression)

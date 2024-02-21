@@ -4,9 +4,9 @@ public class ExecutionRequestViewModel
 {
     public Guid Id { get; set; }
 
-    public TicketViewModel Ticket { get; set; } = null!;
+    public Guid TicketId { get; set; }
 
-    public UserViewModel ExecutorViewModel { get; set; } = null!;
+    public Guid ExecutorId { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
