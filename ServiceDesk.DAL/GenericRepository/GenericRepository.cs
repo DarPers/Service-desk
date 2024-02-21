@@ -16,10 +16,11 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         _entities = _context.Set<TEntity>();
     }
 
-    public async Task AddEntityAsync(TEntity entity, CancellationToken cancellationToken)
+    public async Task<TEntity> AddEntityAsync(TEntity entity, CancellationToken cancellationToken)
     {
-        await _entities.AddAsync(entity, cancellationToken);
+        var newEntity = (await _entities.AddAsync(entity, cancellationToken)).Entity;
         await _context.SaveChangesAsync(cancellationToken);
+        return newEntity;
     }
 
     public async Task DeleteEntityAsync(TEntity entity, CancellationToken cancellationToken)
@@ -28,10 +29,11 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateEntityAsync(TEntity entity, CancellationToken cancellationToken)
+    public async Task<TEntity> UpdateEntityAsync(TEntity entity, CancellationToken cancellationToken)
     {
-        _entities.Update(entity);
+        var updatedEntity = _entities.Update(entity).Entity;
         await _context.SaveChangesAsync(cancellationToken);
+        return updatedEntity;
     }
 
     public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken)
@@ -51,8 +53,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 
     public async Task<TEntity?> GetEntityByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        Func<TEntity, bool> predicate = p => p.Id == id;
-        return await _entities.FindAsync(predicate, cancellationToken);
+        return await _entities.FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
     }
 
     public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties)
