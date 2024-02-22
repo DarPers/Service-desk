@@ -40,24 +40,27 @@ namespace ServiceDeskAPI.Controllers
             await _ticketService.DeleteModelAsync(id, cancellationToken);
         }
 
-        [HttpPut]
-        public async Task UpdateTicket(TicketViewModel ticket, CancellationToken cancellationToken)
+        [HttpPut("{id:Guid}")]
+        public async Task<TicketViewModel> UpdateTicket(Guid id, TicketUpdatingViewModel ticket, CancellationToken cancellationToken)
         {
             var ticketModel = _mapper.Map<TicketModel>(ticket);
-            await _ticketService.UpdateModelAsync(ticketModel, cancellationToken);
+            var newTicketModel = await _ticketService.UpdateModelAsync(id, ticketModel, cancellationToken);
+            return _mapper.Map<TicketViewModel>(newTicketModel);
         }
 
         [HttpPost]
-        public async Task CreateTicket(TicketCreationViewModel ticket, CancellationToken cancellationToken)
+        public async Task<TicketViewModel> CreateTicket(TicketCreationViewModel ticket, CancellationToken cancellationToken)
         {
             var ticketModel = _mapper.Map<TicketModel>(ticket);
-            await _ticketService.CreateModelAsync(ticketModel, cancellationToken);
+            var newTicketModel = await _ticketService.CreateModelAsync(ticketModel, cancellationToken);
+            return _mapper.Map<TicketViewModel>(newTicketModel);
         }
 
         [HttpPatch("{id:Guid}/status")]
-        public async Task UpdateTicketStatus(Guid id, Status status, CancellationToken cancellationToken)
+        public async Task<TicketViewModel> UpdateTicketStatus(Guid id, Status status, CancellationToken cancellationToken)
         {
-            await _ticketService.SetTicketStatus(id, status, cancellationToken);
+            var newTicketModel = await _ticketService.SetTicketStatus(id, status, cancellationToken);
+            return _mapper.Map<TicketViewModel>(newTicketModel);
         }
     }
 }
