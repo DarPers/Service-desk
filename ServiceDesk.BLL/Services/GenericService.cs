@@ -17,7 +17,7 @@ public class GenericService<TModel, TEntity> : IGenericService<TModel, TEntity> 
         _mapper = mapper;
     }
 
-    public virtual async Task<TModel?> CreateModelAsync(TModel model, CancellationToken cancellationToken)
+    public virtual async Task<TModel> CreateModelAsync(TModel model, CancellationToken cancellationToken)
     {
         var entity = _mapper.Map<TEntity>(model);
         var newEntity =  await _genericRepository.AddEntityAsync(entity, cancellationToken);
@@ -58,13 +58,13 @@ public class GenericService<TModel, TEntity> : IGenericService<TModel, TEntity> 
         return _mapper.Map<TModel>(entity);
     }
 
-    public async Task<TModel?> UpdateModelAsync(Guid id, TModel model, CancellationToken cancellationToken)
+    public async Task<TModel> UpdateModelAsync(Guid id, TModel model, CancellationToken cancellationToken)
     {
         var entity = await _genericRepository.GetEntityByIdAsync(id, cancellationToken);
 
         if (entity == null)
         {
-            return null;
+            throw new NullReferenceException("Model is null");
         }
 
         var newEntity = _mapper.Map<TEntity>(model);

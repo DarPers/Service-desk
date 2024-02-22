@@ -6,7 +6,7 @@ namespace ServiceDesk.BLL.Interfaces;
 
 public interface ITicketService : IGenericService<TicketModel, Ticket>
 {
-    public Task<TicketModel?> SetTicketStatus(Guid id, Status newStatus, CancellationToken cancellationToken);
+    public Task<TicketModel> SetTicketStatus(Guid id, Status newStatus, CancellationToken cancellationToken);
 
     public Task<Status> GetTicketStatus(Guid id, CancellationToken cancellationToken);
 }

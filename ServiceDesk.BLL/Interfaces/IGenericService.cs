@@ -6,7 +6,7 @@ namespace ServiceDesk.BLL.Interfaces;
 
 public interface IGenericService<TModel, TEntity> where TModel : BaseModel where TEntity : BaseEntity
 {
-    public Task<TModel?> CreateModelAsync(TModel model, CancellationToken cancellationToken);
+    public Task<TModel> CreateModelAsync(TModel model, CancellationToken cancellationToken);
 
     public Task DeleteModelAsync(Guid id, CancellationToken cancellationToken);
 
@@ -17,5 +17,5 @@ public interface IGenericService<TModel, TEntity> where TModel : BaseModel where
     public Task<IEnumerable<TModel>> GetListByPredicateAsync(Expression<Func<TEntity, bool>> predicate,
         CancellationToken cancellationToken);
 
-    public Task<TModel?> UpdateModelAsync(Guid id, TModel model, CancellationToken cancellationToken);
+    public Task<TModel> UpdateModelAsync(Guid id, TModel model, CancellationToken cancellationToken);
 }

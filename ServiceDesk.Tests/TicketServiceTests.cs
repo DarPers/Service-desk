@@ -10,7 +10,6 @@ using NSubstitute.ReturnsExtensions;
 using ServiceDesk.BLL.Models;
 using ServiceDesk.Domain.Enums;
 using Xunit;
-using System.Threading;
 
 namespace ServiceDesk.Tests;
 
@@ -143,6 +142,23 @@ public class TicketServiceTests
     }
 
     [Fact]
+    public async Task CreateModel_InvalidUserInTicketModel_ShouldThrowException()
+    {
+        //Arrange
+        var ticketModel = Substitute.For<TicketModel>();
+        var ticketEntity = Substitute.For<Ticket>();
+        _userRepository.GetEntityByIdAsync(ticketModel.UserId, default).ReturnsNull();
+        _ticketRepository.AddEntityAsync(Arg.Any<Ticket>(), default).Returns(ticketEntity);
+
+        //Act
+        var action = async () => await _ticketService.CreateModelAsync(ticketModel, default);
+
+        //Assert
+        var exception = await Assert.ThrowsAsync<NullReferenceException>(action);
+        Assert.Equal("User does not exist", exception.Message);
+    }
+
+    [Fact]
     public async Task DeleteModel_ValidId_ShouldExecuteDeleteModel()
     {
         //Arrange
@@ -172,7 +188,7 @@ public class TicketServiceTests
     }
 
     [Fact]
-    public async Task UpdateModel_InvalidModel_ShouldNotExecuteUpdateModel()
+    public async Task UpdateModel_InvalidModel_ShouldThrowException()
     {
         //Arrange
         var id = new Guid();
@@ -181,10 +197,11 @@ public class TicketServiceTests
         _ticketRepository.GetEntityByIdAsync(id, default).ReturnsNull();
 
         //Act
-        await _ticketService.UpdateModelAsync(id, ticketModel, default);
+        var action = async () => await _ticketService.UpdateModelAsync(id, ticketModel, default);
 
         //Assert
-        await _ticketRepository.DidNotReceive().UpdateEntityAsync(Arg.Any<Ticket>(), default);
+        var exception = await Assert.ThrowsAsync<NullReferenceException>(action);
+        Assert.Equal("Model is null", exception.Message);
     }
 
     [Fact]
@@ -198,6 +215,38 @@ public class TicketServiceTests
 
         //Act
         await _ticketService.UpdateModelAsync(id, ticketModel, default);
+
+        //Assert
+        await _ticketRepository.Received().UpdateEntityAsync(Arg.Any<Ticket>(), default);
+    }
+
+    [Fact]
+    public async Task SetTicketStatus_InvalidModel_ShouldThrowException()
+    {
+        //Arrange
+        var id = new Guid();
+        var status = Status.None;
+        _ticketRepository.GetEntityByIdAsync(id, default).ReturnsNull();
+
+        //Act
+        var action = async () => await _ticketService.SetTicketStatus(id, status, default);
+
+        //Assert
+        var exception = await Assert.ThrowsAsync<NullReferenceException>(action);
+        Assert.Equal("Ticket is null", exception.Message);
+    }
+
+    [Fact]
+    public async Task SetTicketStatus_ValidModel_ShouldExecuteUpdateModel()
+    {
+        //Arrange
+        var id = new Guid();
+        var ticket = Substitute.For<Ticket>();
+        var status = Status.None;
+        _ticketRepository.GetEntityByIdAsync(id, default).Returns(ticket);
+
+        //Act
+        await _ticketService.SetTicketStatus(id, status, default);
 
         //Assert
         await _ticketRepository.Received().UpdateEntityAsync(Arg.Any<Ticket>(), default);

@@ -28,33 +28,27 @@ public class TicketService : GenericService<TicketModel, Ticket>, ITicketService
         return ticket?.Status ?? throw new NullReferenceException("Ticket is null");
     }
 
-    public async Task<TicketModel?> SetTicketStatus(Guid id, Status newStatus, CancellationToken cancellationToken)
+    public async Task<TicketModel> SetTicketStatus(Guid id, Status newStatus, CancellationToken cancellationToken)
     {
         var ticket = await _ticketRepository.GetEntityByIdAsync(id, cancellationToken);
 
         if (ticket == null)
         {
-            return null;
+            throw new NullReferenceException("Ticket is null");
         }
 
         ticket.Status = newStatus;
-
-        if (newStatus == Status.InProgress)
-        {
-            ticket.DateTimeAccepted = DateTime.UtcNow;
-        }
-
         await _ticketRepository.UpdateEntityAsync(ticket, cancellationToken);
         return _mapper.Map<TicketModel>(ticket);
     }
 
-    public override async Task<TicketModel?> CreateModelAsync(TicketModel model, CancellationToken cancellationToken)
+    public override async Task<TicketModel> CreateModelAsync(TicketModel model, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetEntityByIdAsync(model.UserId, cancellationToken);
 
         if (user == null)
         {
-            return null;
+            throw new NullReferenceException("User does not exist");
         }
 
         return await base.CreateModelAsync(model, cancellationToken);
