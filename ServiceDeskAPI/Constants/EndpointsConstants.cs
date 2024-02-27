@@ -2,6 +2,7 @@
 
 public class EndpointsConstants
 {
-    public const string RequestWithGuidId = "{id:Guid}";
+    public const string RequestWithId = "{id:Guid}";
+    public const string RequestWithUsers = "users/";
 }
 

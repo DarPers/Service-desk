@@ -28,20 +28,20 @@ public class TicketsController : ControllerBase
         return _mapper.Map<IEnumerable<TicketViewModel>>(ticketModels);
     }
 
-    [HttpGet("users/" + EndpointsConstants.RequestWithGuidId)]
+    [HttpGet(EndpointsConstants.RequestWithUsers + EndpointsConstants.RequestWithId)]
     public async Task<IEnumerable<TicketViewModel>> GetTicketsByUserId(Guid id, CancellationToken cancellationToken)
     {
         var ticketModels = await _ticketService.GetListByPredicateAsync(p => p.UserId == id, cancellationToken);
         return _mapper.Map<IEnumerable<TicketViewModel>>(ticketModels);
     }
 
-    [HttpDelete(EndpointsConstants.RequestWithGuidId)]
-    public void DeleteTicket(Guid id, CancellationToken cancellationToken)
+    [HttpDelete(EndpointsConstants.RequestWithId)]
+    public Task DeleteTicket(Guid id, CancellationToken cancellationToken)
     {
-        _ticketService.DeleteModelAsync(id, cancellationToken);
+        return _ticketService.DeleteModelAsync(id, cancellationToken);
     }
 
-    [HttpPut(EndpointsConstants.RequestWithGuidId)]
+    [HttpPut(EndpointsConstants.RequestWithId)]
     public async Task<TicketViewModel> UpdateTicket(Guid id, TicketUpdatingViewModel ticket, CancellationToken cancellationToken)
     {
         var ticketModel = _mapper.Map<TicketModel>(ticket);
@@ -57,7 +57,7 @@ public class TicketsController : ControllerBase
         return _mapper.Map<TicketViewModel>(newTicketModel);
     }
 
-    [HttpPatch(EndpointsConstants.RequestWithGuidId)]
+    [HttpPatch(EndpointsConstants.RequestWithId)]
     public async Task<TicketViewModel> UpdateTicketStatus(Guid id, Status status, CancellationToken cancellationToken)
     {
         var newTicketModel = await _ticketService.SetTicketStatus(id, status, cancellationToken);

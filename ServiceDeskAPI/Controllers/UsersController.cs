@@ -20,10 +20,10 @@ public class UsersController : ControllerBase
         _mapper = mapper;
     }
 
-    [HttpDelete(EndpointsConstants.RequestWithGuidId)]
-    public void DeleteTicket(Guid id, CancellationToken cancellationToken)
+    [HttpDelete(EndpointsConstants.RequestWithId)]
+    public Task DeleteUser(Guid id, CancellationToken cancellationToken)
     {
-        _userService.DeleteModelAsync(id, cancellationToken);
+        return _userService.DeleteModelAsync(id, cancellationToken);
     }
 
     [HttpPost]
@@ -34,7 +34,7 @@ public class UsersController : ControllerBase
         return _mapper.Map<UserViewModel>(newUserModel);
     }
 
-    [HttpPut(EndpointsConstants.RequestWithGuidId)]
+    [HttpPut(EndpointsConstants.RequestWithId)]
     public async Task<UserViewModel> UpdateUser(Guid id, UserUpdatingViewModel user, CancellationToken cancellationToken)
     {
         var userModel = _mapper.Map<UserModel>(user);
@@ -42,7 +42,7 @@ public class UsersController : ControllerBase
         return _mapper.Map<UserViewModel>(newUserModel);
     }
 
-    [HttpGet(EndpointsConstants.RequestWithGuidId)]
+    [HttpGet(EndpointsConstants.RequestWithId)]
     public async Task<UserViewModel> GetUserById(Guid id, CancellationToken cancellationToken)
     {
         var userModel = await _userService.GetModelByIdAsync(id, cancellationToken);
