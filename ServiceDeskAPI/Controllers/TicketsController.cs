@@ -28,7 +28,7 @@ public class TicketsController : ControllerBase
         return _mapper.Map<IEnumerable<TicketViewModel>>(ticketModels);
     }
 
-    [HttpGet(EndpointsConstants.RequestWithUsers + EndpointsConstants.RequestWithId)]
+    [HttpGet(EndpointsConstants.RequestWithUsersAndId)]
     public async Task<IEnumerable<TicketViewModel>> GetTicketsByUserId(Guid id, CancellationToken cancellationToken)
     {
         var ticketModels = await _ticketService.GetListByPredicateAsync(p => p.UserId == id, cancellationToken);
