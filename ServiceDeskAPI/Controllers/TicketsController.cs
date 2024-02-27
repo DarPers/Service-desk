@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceDesk.BLL.Interfaces;
 using ServiceDesk.BLL.Models;
 using ServiceDesk.Domain.Enums;
+using ServiceDeskAPI.Constants;
 using ServiceDeskAPI.ViewModels;
 
 namespace ServiceDeskAPI.Controllers
@@ -27,20 +28,20 @@ namespace ServiceDeskAPI.Controllers
             return _mapper.Map<IEnumerable<TicketViewModel>>(ticketModels);
         }
 
-        [HttpGet("users/{id:Guid}")]
+        [HttpGet("users/" + EndpointsConstants.RequestWithGuidId)]
         public async Task<IEnumerable<TicketViewModel>> GetTicketsByUserId(Guid id, CancellationToken cancellationToken)
         {
             var ticketModels = await _ticketService.GetListByPredicateAsync(p => p.UserId == id, cancellationToken);
             return _mapper.Map<IEnumerable<TicketViewModel>>(ticketModels);
         }
 
-        [HttpDelete("{id:Guid}")]
-        public async Task DeleteTicket(Guid id, CancellationToken cancellationToken)
-        {
-            await _ticketService.DeleteModelAsync(id, cancellationToken);
+        [HttpDelete(EndpointsConstants.RequestWithGuidId)]
+        public void DeleteTicket(Guid id, CancellationToken cancellationToken)
+        { 
+            _ticketService.DeleteModelAsync(id, cancellationToken);
         }
 
-        [HttpPut("{id:Guid}")]
+        [HttpPut(EndpointsConstants.RequestWithGuidId)]
         public async Task<TicketViewModel> UpdateTicket(Guid id, TicketUpdatingViewModel ticket, CancellationToken cancellationToken)
         {
             var ticketModel = _mapper.Map<TicketModel>(ticket);
@@ -56,7 +57,7 @@ namespace ServiceDeskAPI.Controllers
             return _mapper.Map<TicketViewModel>(newTicketModel);
         }
 
-        [HttpPatch("{id:Guid}/status")]
+        [HttpPatch(EndpointsConstants.RequestWithGuidId + "/status")]
         public async Task<TicketViewModel> UpdateTicketStatus(Guid id, Status status, CancellationToken cancellationToken)
         {
             var newTicketModel = await _ticketService.SetTicketStatus(id, status, cancellationToken);
