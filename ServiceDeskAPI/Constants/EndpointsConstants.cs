@@ -1,7 +1,7 @@
-﻿namespace ServiceDeskAPI.Constants
+﻿namespace ServiceDeskAPI.Constants;
+
+public class EndpointsConstants
 {
-    public class EndpointsConstants
-    {
-        public const string RequestWithGuidId = "{id:Guid}";
-    }
+    public const string RequestWithGuidId = "{id:Guid}";
 }
+
