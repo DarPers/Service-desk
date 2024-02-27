@@ -8,7 +8,7 @@ using ServiceDeskAPI.ViewModels;
 
 namespace ServiceDeskAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("[controller]")]
 [ApiController]
 public class TicketsController : ControllerBase
 {
@@ -21,7 +21,7 @@ public class TicketsController : ControllerBase
         _mapper = mapper;
     }
 
-    [HttpGet("all")]
+    [HttpGet]
     public async Task<IEnumerable<TicketViewModel>> GetAllTickets(CancellationToken cancellationToken)
     {
         var ticketModels = await _ticketService.GetAllAsync(cancellationToken);
@@ -57,7 +57,7 @@ public class TicketsController : ControllerBase
         return _mapper.Map<TicketViewModel>(newTicketModel);
     }
 
-    [HttpPatch(EndpointsConstants.RequestWithGuidId + "/status")]
+    [HttpPatch(EndpointsConstants.RequestWithGuidId)]
     public async Task<TicketViewModel> UpdateTicketStatus(Guid id, Status status, CancellationToken cancellationToken)
     {
         var newTicketModel = await _ticketService.SetTicketStatus(id, status, cancellationToken);

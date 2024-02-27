@@ -7,7 +7,7 @@ using ServiceDeskAPI.ViewModels;
 
 namespace ServiceDeskAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("[controller]")]
 [ApiController]
 public class UsersController : ControllerBase
 {
