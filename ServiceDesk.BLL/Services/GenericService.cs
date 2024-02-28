@@ -4,6 +4,7 @@ using ServiceDesk.BLL.Models;
 using ServiceDesk.DAL.Entities;
 using ServiceDesk.DAL.GenericRepository;
 using System.Linq.Expressions;
+using ServiceDesk.Domain.Exceptions;
 
 namespace ServiceDesk.BLL.Services;
 public class GenericService<TModel, TEntity> : IGenericService<TModel, TEntity> where TModel: BaseModel where TEntity : BaseEntity
@@ -62,12 +63,10 @@ public class GenericService<TModel, TEntity> : IGenericService<TModel, TEntity> 
     {
         var entity = await _genericRepository.GetEntityByIdAsync(id, cancellationToken);
 
-        if (entity == null)
-        {
-            throw new NullReferenceException("Model is null");
-        }
+        EntityIsNullException.ThrowIfNull(entity);
 
         var newEntity = _mapper.Map<TEntity>(model);
+        newEntity.Id = id;
         var updatedEntity =  await _genericRepository.UpdateEntityAsync(newEntity, cancellationToken);
         return _mapper.Map<TModel>(updatedEntity);
     }
