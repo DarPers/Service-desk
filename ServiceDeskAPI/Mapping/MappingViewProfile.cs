@@ -18,6 +18,7 @@ public class MappingViewProfile : Profile
         ConfigureMapping(CreateMap<ExecutionRequestCreationViewModel, ExecutionRequestModel>());
         CreateMap<TicketUpdatingViewModel, TicketModel>();
         CreateMap<UserUpdatingViewModel, UserModel>();
+        CreateMap<ExecutionRequestUpdatingViewModel, ExecutionRequestModel>();
     }
 
     private static void ConfigureMapping<TSource, TDestination> (IMappingExpression<TSource, TDestination> mappingExpression)

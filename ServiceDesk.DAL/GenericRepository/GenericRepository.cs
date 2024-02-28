@@ -23,10 +23,10 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         return entity;
     }
 
-    public async Task DeleteEntityAsync(TEntity entity, CancellationToken cancellationToken)
+    public Task DeleteEntityAsync(TEntity entity, CancellationToken cancellationToken)
     {
         _entities.Remove(entity);
-        await _context.SaveChangesAsync(cancellationToken);
+        return _context.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<TEntity> UpdateEntityAsync(TEntity entity, CancellationToken cancellationToken)
@@ -53,7 +53,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 
     public Task<TEntity?> GetEntityByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        return _entities.FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+        return _entities.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
     }
 
     public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties)
