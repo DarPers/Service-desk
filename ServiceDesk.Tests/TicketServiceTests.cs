@@ -9,6 +9,7 @@ using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using ServiceDesk.BLL.Models;
 using ServiceDesk.Domain.Enums;
+using ServiceDesk.Domain.Exceptions;
 using Xunit;
 
 namespace ServiceDesk.Tests;
@@ -154,8 +155,8 @@ public class TicketServiceTests
         var action = async () => await _ticketService.CreateModelAsync(ticketModel, default);
 
         //Assert
-        var exception = await Assert.ThrowsAsync<NullReferenceException>(action);
-        Assert.Equal("User does not exist", exception.Message);
+        var exception = await Assert.ThrowsAsync<EntityIsNullException>(action);
+        Assert.Equal("Entity does not exist!", exception.Message);
     }
 
     [Fact]
@@ -200,8 +201,8 @@ public class TicketServiceTests
         var action = async () => await _ticketService.UpdateModelAsync(id, ticketModel, default);
 
         //Assert
-        var exception = await Assert.ThrowsAsync<NullReferenceException>(action);
-        Assert.Equal("Model is null", exception.Message);
+        var exception = await Assert.ThrowsAsync<EntityIsNullException>(action);
+        Assert.Equal("Entity does not exist!", exception.Message);
     }
 
     [Fact]
@@ -232,8 +233,8 @@ public class TicketServiceTests
         var action = async () => await _ticketService.SetTicketStatus(id, status, default);
 
         //Assert
-        var exception = await Assert.ThrowsAsync<NullReferenceException>(action);
-        Assert.Equal("Ticket is null", exception.Message);
+        var exception = await Assert.ThrowsAsync<EntityIsNullException>(action);
+        Assert.Equal("Entity does not exist!", exception.Message);
     }
 
     [Fact]
@@ -250,5 +251,20 @@ public class TicketServiceTests
 
         //Assert
         await _ticketRepository.Received().UpdateEntityAsync(Arg.Any<Ticket>(), default);
+    }
+
+    [Fact]
+    public async Task GetTicketsByUser_ValidId_ReturnListOfTickets()
+    {
+        //Arrange
+        var id = new Guid();
+        var tickets = Substitute.For<IEnumerable<Ticket>>();
+        _ticketRepository.GetEntitiesByPredicateAsync(p => p.UserId == id, default).Returns(tickets);
+
+        //Act
+        var result = await _ticketService.GetTicketsByUser(id, default);
+
+        //Assert
+        result.Should().BeOfType(typeof(List<TicketModel>));
     }
 }

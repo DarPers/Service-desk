@@ -4,6 +4,7 @@ using ServiceDesk.BLL.Models;
 using ServiceDesk.DAL.Entities;
 using ServiceDesk.DAL.GenericRepository;
 using ServiceDesk.Domain.Enums;
+using ServiceDesk.Domain.Exceptions;
 
 namespace ServiceDesk.BLL.Services;
 
@@ -32,10 +33,7 @@ public class TicketService : GenericService<TicketModel, Ticket>, ITicketService
     {
         var ticket = await _ticketRepository.GetEntityByIdAsync(id, cancellationToken);
 
-        if (ticket == null)
-        {
-            throw new NullReferenceException("Ticket is null");
-        }
+        EntityIsNullException.ThrowIfNull(ticket);
 
         ticket.Status = newStatus;
         await _ticketRepository.UpdateEntityAsync(ticket, cancellationToken);
@@ -46,11 +44,14 @@ public class TicketService : GenericService<TicketModel, Ticket>, ITicketService
     {
         var user = await _userRepository.GetEntityByIdAsync(model.UserId, cancellationToken);
 
-        if (user == null)
-        {
-            throw new NullReferenceException("User does not exist");
-        }
+        EntityIsNullException.ThrowIfNull(user);
 
         return await base.CreateModelAsync(model, cancellationToken);
+    }
+
+    public async Task<IEnumerable<TicketModel>> GetTicketsByUser(Guid id, CancellationToken cancellationToken)
+    {
+        var ticketEntities = await _ticketRepository.GetEntitiesByPredicateAsync(p => p.UserId == id, cancellationToken);
+        return _mapper.Map<IEnumerable<TicketModel>>(ticketEntities);
     }
 }
