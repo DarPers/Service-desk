@@ -20,10 +20,14 @@ public class TicketServiceTests
     private static readonly IGenericRepository<Ticket> _ticketRepository;
     private static readonly IGenericRepository<User> _userRepository;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private static readonly IMapper _mapper;//сущю конфиг.
 =======
     private static readonly IMapper _mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
 >>>>>>> 81e208b (fix tests for ticket service)
+=======
+    private static readonly IMapper _mapper;//сущю конфиг.
+>>>>>>> c97c4b404bfe1fa163b102316a783d949e3a7038
     private static readonly ITicketService _ticketService;
 
     static TicketServiceTests()
@@ -107,6 +111,9 @@ public class TicketServiceTests
     {
         //Arrange
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c97c4b404bfe1fa163b102316a783d949e3a7038
         var entities = new List<Ticket>();
         var models = new List<TicketModel>();
         _ticketRepository.GetAllAsync(default).Returns(entities);
@@ -135,16 +142,21 @@ public class TicketServiceTests
 
         //Assert
 <<<<<<< HEAD
+<<<<<<< HEAD
         Assert.Equal(models, result);
 =======
         Assert.Equivalent(models, result);
 >>>>>>> 81e208b (fix tests for ticket service)
+=======
+        Assert.Equal(models, result);
+>>>>>>> c97c4b404bfe1fa163b102316a783d949e3a7038
     }
 
     [Fact]
     public async Task GetListByPredicate_WhiteData_ReturnListOfModels()
     {
         //Arrange
+<<<<<<< HEAD
 <<<<<<< HEAD
         var entities = new List<Ticket>();
         var models = new List<TicketModel>();
@@ -166,6 +178,10 @@ public class TicketServiceTests
         };
 
 >>>>>>> 81e208b (fix tests for ticket service)
+=======
+        var entities = new List<Ticket>();
+        var models = new List<TicketModel>();
+>>>>>>> c97c4b404bfe1fa163b102316a783d949e3a7038
         var predicate = Arg.Any<Expression<Func<Ticket, bool>>>();
 
         _ticketRepository.GetEntitiesByPredicateAsync(predicate, default).Returns(tickets);
@@ -175,10 +191,14 @@ public class TicketServiceTests
 
         //Assert
 <<<<<<< HEAD
+<<<<<<< HEAD
         Assert.Equal(models, result);
 =======
         Assert.Equivalent(models, result);
 >>>>>>> 81e208b (fix tests for ticket service)
+=======
+        Assert.Equal(models, result);
+>>>>>>> c97c4b404bfe1fa163b102316a783d949e3a7038
     }
 
     [Fact]
@@ -332,10 +352,14 @@ public class TicketServiceTests
         var tickets = new List<Ticket>
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             new Ticket()
 =======
             new ()
 >>>>>>> 81e208b (fix tests for ticket service)
+=======
+            new Ticket()
+>>>>>>> c97c4b404bfe1fa163b102316a783d949e3a7038
             {
                 UserId = id
             }
@@ -350,6 +374,9 @@ public class TicketServiceTests
         };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c97c4b404bfe1fa163b102316a783d949e3a7038
         _ticketRepository.GetEntitiesByPredicateAsync(p => p.UserId == id, default).Returns(tickets);
 =======
         var predicate = Arg.Any<Expression<Func<Ticket, bool>>>();
@@ -361,9 +388,13 @@ public class TicketServiceTests
 
         //Assert
 <<<<<<< HEAD
+<<<<<<< HEAD
         Assert.Equal(models, result);
 =======
         Assert.Equivalent(models, result);
 >>>>>>> 81e208b (fix tests for ticket service)
+=======
+        Assert.Equal(models, result);
+>>>>>>> c97c4b404bfe1fa163b102316a783d949e3a7038
     }
 }
