@@ -26,7 +26,9 @@ public class TicketService : GenericService<TicketModel, Ticket>, ITicketService
     {
         var ticket = await _ticketRepository.GetEntityByIdAsync(id, cancellationToken);
 
-        return ticket?.Status ?? throw new NullReferenceException("Ticket is null");
+        EntityIsNullException.ThrowIfNull(ticket);
+
+        return ticket.Status;
     }
 
     public async Task<TicketModel> SetTicketStatus(Guid id, Status newStatus, CancellationToken cancellationToken)

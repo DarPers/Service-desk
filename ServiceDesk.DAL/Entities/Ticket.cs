@@ -14,5 +14,5 @@ public class Ticket : BaseEntity
 
     public Status Status { get; set; }
 
-    public DateTime DateTimeAccepted { get; set; }
+    public DateTime? DateTimeAccepted { get; set; }
 }
