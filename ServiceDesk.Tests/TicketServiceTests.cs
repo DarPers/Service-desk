@@ -19,15 +19,7 @@ public class TicketServiceTests
 {
     private static readonly IGenericRepository<Ticket> _ticketRepository;
     private static readonly IGenericRepository<User> _userRepository;
-<<<<<<< HEAD
-<<<<<<< HEAD
-    private static readonly IMapper _mapper;//сущю конфиг.
-=======
     private static readonly IMapper _mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
->>>>>>> 81e208b (fix tests for ticket service)
-=======
-    private static readonly IMapper _mapper;//сущю конфиг.
->>>>>>> c97c4b404bfe1fa163b102316a783d949e3a7038
     private static readonly ITicketService _ticketService;
 
     static TicketServiceTests()
@@ -110,14 +102,6 @@ public class TicketServiceTests
     public async Task GetAll_WhiteData_ReturnListOfModels()
     {
         //Arrange
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c97c4b404bfe1fa163b102316a783d949e3a7038
-        var entities = new List<Ticket>();
-        var models = new List<TicketModel>();
-        _ticketRepository.GetAllAsync(default).Returns(entities);
-=======
         var tickets = new List<Ticket>
         {
             new ()
@@ -135,35 +119,21 @@ public class TicketServiceTests
         };
 
         _ticketRepository.GetAllAsync(default).Returns(tickets);
->>>>>>> 81e208b (fix tests for ticket service)
 
         //Act
         var result = await _ticketService.GetAllAsync(default);
 
         //Assert
-<<<<<<< HEAD
-<<<<<<< HEAD
-        Assert.Equal(models, result);
-=======
         Assert.Equivalent(models, result);
->>>>>>> 81e208b (fix tests for ticket service)
-=======
-        Assert.Equal(models, result);
->>>>>>> c97c4b404bfe1fa163b102316a783d949e3a7038
     }
 
     [Fact]
     public async Task GetListByPredicate_WhiteData_ReturnListOfModels()
     {
         //Arrange
-<<<<<<< HEAD
-<<<<<<< HEAD
-        var entities = new List<Ticket>();
-        var models = new List<TicketModel>();
-=======
         var tickets = new List<Ticket>
         {
-            new ()
+            new()
             {
                 Name = "Test"
             }
@@ -171,34 +141,19 @@ public class TicketServiceTests
 
         var models = new List<TicketModel>
         {
-            new ()
+            new()
             {
                 Name = "Test"
             }
         };
 
->>>>>>> 81e208b (fix tests for ticket service)
-=======
-        var entities = new List<Ticket>();
-        var models = new List<TicketModel>();
->>>>>>> c97c4b404bfe1fa163b102316a783d949e3a7038
         var predicate = Arg.Any<Expression<Func<Ticket, bool>>>();
-
         _ticketRepository.GetEntitiesByPredicateAsync(predicate, default).Returns(tickets);
 
         //Act
         var result = await _ticketService.GetListByPredicateAsync(predicate, default);
 
-        //Assert
-<<<<<<< HEAD
-<<<<<<< HEAD
-        Assert.Equal(models, result);
-=======
         Assert.Equivalent(models, result);
->>>>>>> 81e208b (fix tests for ticket service)
-=======
-        Assert.Equal(models, result);
->>>>>>> c97c4b404bfe1fa163b102316a783d949e3a7038
     }
 
     [Fact]
@@ -351,15 +306,7 @@ public class TicketServiceTests
         var id = new Guid();
         var tickets = new List<Ticket>
         {
-<<<<<<< HEAD
-<<<<<<< HEAD
-            new Ticket()
-=======
             new ()
->>>>>>> 81e208b (fix tests for ticket service)
-=======
-            new Ticket()
->>>>>>> c97c4b404bfe1fa163b102316a783d949e3a7038
             {
                 UserId = id
             }
@@ -373,28 +320,13 @@ public class TicketServiceTests
             }
         };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c97c4b404bfe1fa163b102316a783d949e3a7038
-        _ticketRepository.GetEntitiesByPredicateAsync(p => p.UserId == id, default).Returns(tickets);
-=======
         var predicate = Arg.Any<Expression<Func<Ticket, bool>>>();
         _ticketRepository.GetEntitiesByPredicateAsync(predicate, default).Returns(tickets);
->>>>>>> 81e208b (fix tests for ticket service)
 
         //Act
         var result = await _ticketService.GetTicketsByUser(id, default);
 
         //Assert
-<<<<<<< HEAD
-<<<<<<< HEAD
-        Assert.Equal(models, result);
-=======
         Assert.Equivalent(models, result);
->>>>>>> 81e208b (fix tests for ticket service)
-=======
-        Assert.Equal(models, result);
->>>>>>> c97c4b404bfe1fa163b102316a783d949e3a7038
     }
 }
