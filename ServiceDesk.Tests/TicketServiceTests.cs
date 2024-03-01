@@ -12,6 +12,7 @@ using ServiceDesk.BLL.Models;
 using ServiceDesk.Domain.Enums;
 using ServiceDesk.Domain.Exceptions;
 using Xunit;
+using System.Net.Sockets;
 
 namespace ServiceDesk.Tests;
 
@@ -47,7 +48,7 @@ public class TicketServiceTests
 
         //Assert
         result.Should().NotBeNull();
-        Assert.Equal("Test name", result.Name);
+        result.Name.Should().Be(ticket.Name);
     }
 
     [Fact]
@@ -95,7 +96,7 @@ public class TicketServiceTests
 
         //Assert
         var exception = await Assert.ThrowsAsync<EntityIsNullException>(action);
-        Assert.Equal("Entity does not exist!", exception.Message);
+        exception.Message.Should().Be("Entity does not exist!");
     }
 
     [Fact]
@@ -124,7 +125,7 @@ public class TicketServiceTests
         var result = await _ticketService.GetAllAsync(default);
 
         //Assert
-        Assert.Equivalent(models, result);
+        result.Should().BeEquivalentTo(models);
     }
 
     [Fact]
@@ -153,7 +154,7 @@ public class TicketServiceTests
         //Act
         var result = await _ticketService.GetListByPredicateAsync(predicate, default);
 
-        Assert.Equivalent(models, result);
+        result.Should().BeEquivalentTo(models);
     }
 
     [Fact]
@@ -174,7 +175,7 @@ public class TicketServiceTests
         var result = await _ticketService.CreateModelAsync(ticketModel, default);
 
         //Assert
-        Assert.Equal("Test name", result.Name);
+        result.Name.Should().BeEquivalentTo(ticketEntity.Name);
     }
 
     [Fact]
@@ -191,7 +192,7 @@ public class TicketServiceTests
 
         //Assert
         var exception = await Assert.ThrowsAsync<EntityIsNullException>(action);
-        Assert.Equal("Entity does not exist!", exception.Message);
+        exception.Message.Should().Be("Entity does not exist!");
     }
 
     [Fact]
@@ -237,7 +238,7 @@ public class TicketServiceTests
 
         //Assert
         var exception = await Assert.ThrowsAsync<EntityIsNullException>(action);
-        Assert.Equal("Entity does not exist!", exception.Message);
+        exception.Message.Should().Be("Entity does not exist!");
     }
 
     [Fact]
@@ -264,7 +265,7 @@ public class TicketServiceTests
         var result = await _ticketService.UpdateModelAsync(id, model, default);
 
         //Assert
-        Assert.Equal(model.Name, result.Name);
+        result.Name.Should().BeEquivalentTo(model.Name);
     }
 
     [Fact]
@@ -280,7 +281,7 @@ public class TicketServiceTests
 
         //Assert
         var exception = await Assert.ThrowsAsync<EntityIsNullException>(action);
-        Assert.Equal("Entity does not exist!", exception.Message);
+        exception.Message.Should().Be("Entity does not exist!");
     }
 
     [Fact]
@@ -296,7 +297,7 @@ public class TicketServiceTests
         var result = await _ticketService.SetTicketStatus(id, status, default);
 
         //Assert
-        Assert.Equal(status, result.Status);
+        result.Status.Should().Be(status);
     }
 
     [Fact]
@@ -327,6 +328,6 @@ public class TicketServiceTests
         var result = await _ticketService.GetTicketsByUser(id, default);
 
         //Assert
-        Assert.Equivalent(models, result);
+        result.Should().BeEquivalentTo(models);
     }
 }
