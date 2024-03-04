@@ -20,12 +20,37 @@ public class UsersController : ControllerBase
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Delete user with certain id
+    /// </summary>
+    /// <param name="id">User id</param>
+    /// <param name="cancellationToken"></param>
+    /// <remarks>
+    /// Sample request:
+    /// DELETE /users/{id}
+    /// </remarks>
     [HttpDelete(EndpointsConstants.RequestWithId)]
     public Task DeleteUser(Guid id, CancellationToken cancellationToken)
     {
         return _userService.DeleteModelAsync(id, cancellationToken);
     }
 
+    /// <summary>
+    /// Create new user
+    /// </summary>
+    /// <param name="user">New user</param>
+    /// <param name="cancellationToken"></param>
+    /// <remarks>
+    /// Sample request:
+    /// POST /users
+    /// {
+    ///     "firstName": "Klaus",
+    ///     "lastName": "Russel",
+    ///     "email": "ron@email.com",
+    ///     "password": "12345were67",
+    ///     "role": "OperationAdministrator"
+    /// }
+    /// </remarks>
     [HttpPost]
     public async Task<UserViewModel> CreateUser(UserRegistrationViewModel user, CancellationToken cancellationToken)
     {
@@ -34,6 +59,21 @@ public class UsersController : ControllerBase
         return _mapper.Map<UserViewModel>(newUserModel);
     }
 
+    /// <summary>
+    /// Update user with certain id
+    /// </summary>
+    /// <param name="id">User id</param>
+    /// <param name="user"></param>
+    /// <param name="cancellationToken"></param>
+    /// <remarks>
+    /// Sample request:
+    /// PUT /users
+    /// {
+    ///     "firstName": "Klause",
+    ///     "lastName": "Russel",
+    ///     "email": "ron@email.com",
+    /// }
+    /// </remarks>
     [HttpPut(EndpointsConstants.RequestWithId)]
     public async Task<UserViewModel> UpdateUser(Guid id, UserUpdatingViewModel user, CancellationToken cancellationToken)
     {
@@ -42,6 +82,15 @@ public class UsersController : ControllerBase
         return _mapper.Map<UserViewModel>(newUserModel);
     }
 
+    /// <summary>
+    /// Get user with certain id
+    /// </summary>
+    /// <param name="id">User id</param>
+    /// <param name="cancellationToken"></param>
+    /// <remarks>
+    /// Sample request:
+    /// GET /users/{id}
+    /// </remarks>
     [HttpGet(EndpointsConstants.RequestWithId)]
     public async Task<UserViewModel> GetUserById(Guid id, CancellationToken cancellationToken)
     {
