@@ -26,10 +26,11 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
 
-    - name: sonarscan-dotnet
+    - name: Sonar Scan
       uses: highbyte/sonarscan-dotnet@v2.3.0
       with:
         sonarProjectKey: DarPers_Service-desk
+        sonarProjectName: Service-desk
         sonarOrganization: darpers
       env: 
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
