@@ -32,5 +32,7 @@ jobs:
         sonarProjectKey: DarPers_Service-desk
         sonarProjectName: Service-desk
         sonarOrganization: darpers
+        dotnetTestArguments: --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+        sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
       env: 
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
