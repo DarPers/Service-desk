@@ -38,4 +38,4 @@ jobs:
       env: 
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         EXCLUDE_FROM_COVERAGE:
-          "**/Program.cs, **/ApplicationDbContext.cs, **/Migrations/*, **/DI/*, **/Mapping/*, **/Controllers/*, **/Validators/*, **/ViewModels/*, **/Models/*"
+          "**/Program.cs, **/ApplicationDbContext.cs, **/Migrations/**/, **/DI/**/, **/Mapping/**/, **/Controllers/**/, **/Validators/**/, **/ViewModels/**/, **/Models/**/"
