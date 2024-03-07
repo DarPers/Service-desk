@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -26,3 +25,16 @@ jobs:
       
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
+
+    - name: Sonar Scan
+      uses: highbyte/sonarscan-dotnet@v2.3.0
+      with:
+        sonarProjectKey: DarPers_Service-desk
+        sonarProjectName: Service-desk
+        sonarOrganization: darpers
+        dotnetBuildArguments: --configuration Release
+        dotnetTestArguments: --no-build --configuration Release --verbosity normal --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+        sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx" /d:sonar.coverage.exclusions="$EXCLUDE_FROM_COVERAGE" 
+      env: 
+        EXCLUDE_FROM_COVERAGE: "**/Program.cs, **/ApplicationDbContext.cs, **/Migrations/*, **/DI/*, **/Mapping/*, **/Validators/*"
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
