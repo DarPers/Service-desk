@@ -4,6 +4,8 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using ServiceDesk.BLL.DI;
 using ServiceDeskAPI.Mapping;
+using ServiceDeskAPI.Middlewares;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -26,6 +28,8 @@ builder.Services.AddBusinessLogicLevelServices(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(MappingViewProfile));
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
