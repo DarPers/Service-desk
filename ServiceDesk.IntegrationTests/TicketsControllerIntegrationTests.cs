@@ -10,7 +10,7 @@ namespace ServiceDesk.IntegrationTests;
 
 public class TicketsControllerIntegrationTests : BaseIntegrationTestClass
 {
-    public TicketsControllerIntegrationTests(TestingWebApplicationFactory<Program> factory) : base(factory)
+    public TicketsControllerIntegrationTests(TestingWebApplicationFactory factory) : base(factory)
     {
     }
 

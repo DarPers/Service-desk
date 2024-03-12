@@ -3,17 +3,18 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ServiceDesk.DAL;
+using ServiceDeskAPI;
 
 namespace ServiceDesk.IntegrationTests;
 
-public class TestingWebApplicationFactory<TEntityPoint> : WebApplicationFactory<Program> where TEntityPoint : class
+public class TestingWebApplicationFactory : WebApplicationFactory<IApiMarker>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.ConfigureServices(services =>
         {
             var dbContextDescriptor =
-                services.SingleOrDefault(i => 
+                services.SingleOrDefault(i =>
                     i.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
 
             services.Remove(dbContextDescriptor!);
@@ -22,20 +23,6 @@ public class TestingWebApplicationFactory<TEntityPoint> : WebApplicationFactory<
             {
                 options.UseInMemoryDatabase("InMemoryDbContextTest");
             });
-
-            //var serviceProvider = services.BuildServiceProvider();
-            //using (var scope = serviceProvider.CreateScope())
-            //using (var applicationDbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
-            //{
-            //    try
-            //    {
-            //        applicationDbContext.Database.EnsureCreated();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        throw;
-            //    }
-            //}
         });
     }
 }

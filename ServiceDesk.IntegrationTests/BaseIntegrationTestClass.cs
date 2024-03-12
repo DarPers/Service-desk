@@ -2,11 +2,11 @@
 using System.Net.Http.Json;
 
 namespace ServiceDesk.IntegrationTests;
-public class BaseIntegrationTestClass : IClassFixture<TestingWebApplicationFactory<Program>>
+public class BaseIntegrationTestClass : IClassFixture<TestingWebApplicationFactory>
 {
     protected readonly HttpClient _client;
 
-    public BaseIntegrationTestClass(TestingWebApplicationFactory<Program> factory)
+    public BaseIntegrationTestClass(TestingWebApplicationFactory factory)
     {
         _client = factory.CreateClient();
     }
@@ -15,7 +15,6 @@ public class BaseIntegrationTestClass : IClassFixture<TestingWebApplicationFacto
     {
         var responseCreatingModel = await _client.PostAsJsonAsync(endpoint, data);
         var createdModelString = await responseCreatingModel.Content.ReadAsStringAsync();
-        JsonConvert.DeserializeObject<TViewModel>(createdModelString);
-        return JsonConvert.DeserializeObject<TViewModel>(createdModelString);
+        return JsonConvert.DeserializeObject<TViewModel>(createdModelString)!;
     }
 }
