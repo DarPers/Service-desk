@@ -2,7 +2,7 @@
 using ServiceDeskAPI.ViewModels;
 
 namespace ServiceDesk.IntegrationTests.TestData;
-public class TestUserViewModel
+public static class TestUserViewModel
 {
     public static UserRegistrationViewModel RegistrationUser => new()
     {

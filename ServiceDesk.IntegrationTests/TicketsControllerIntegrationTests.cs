@@ -19,6 +19,7 @@ public class TicketsControllerIntegrationTests : BaseIntegrationTestClass
     {
         //Arrange
         var user = await AddModelToDatabase<UserViewModel, UserRegistrationViewModel>(Endpoints.UsersEndpoint, TestUserViewModel.RegistrationUser);
+
         var newTicket = TestTicketViewModel.CreateTicket(user.Id);
         var newTickets = new List<TicketViewModel>();
 

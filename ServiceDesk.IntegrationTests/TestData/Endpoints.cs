@@ -1,6 +1,6 @@
 ﻿namespace ServiceDesk.IntegrationTests.TestData;
 
-public class Endpoints
+public static class Endpoints
 {
     public const string TicketsEndpoint = "/tickets";
     public const string UsersEndpoint = "/users";
