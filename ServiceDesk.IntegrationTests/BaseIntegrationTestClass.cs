@@ -11,10 +11,11 @@ public class BaseIntegrationTestClass : IClassFixture<TestingWebApplicationFacto
         _client = factory.CreateClient();
     }
 
-    protected async Task<TViewModel?> AddModelToDatabase<TViewModel, TCreationModel>(string endpoint, TCreationModel data)
+    protected async Task<TViewModel> AddModelToDatabase<TViewModel, TCreationModel>(string endpoint, TCreationModel data)
     {
         var responseCreatingModel = await _client.PostAsJsonAsync(endpoint, data);
         var createdModelString = await responseCreatingModel.Content.ReadAsStringAsync();
+        JsonConvert.DeserializeObject<TViewModel>(createdModelString);
         return JsonConvert.DeserializeObject<TViewModel>(createdModelString);
     }
 }

@@ -37,7 +37,7 @@ public class TicketsControllerIntegrationTests : BaseIntegrationTestClass
         // Assert
         tickets.Should().NotBeNull();
 
-        for (int i = 0; i < tickets.Count; i++)
+        for (int i = 0; i < tickets?.Count; i++)
         {
             tickets[i].Id.Should().Be(newTickets[i].Id);
         }
@@ -91,8 +91,9 @@ public class TicketsControllerIntegrationTests : BaseIntegrationTestClass
         // Assert
         ticketViewModels.Should().NotBeNull();
 
-        foreach (var ticket in ticketViewModels)
+        for (var i = 0; i < ticketViewModels?.Count; i++)
         {
+            var ticket = ticketViewModels[i];
             ticket.UserId.Should().Be(user.Id);
         }
     }
