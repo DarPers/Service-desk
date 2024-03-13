@@ -8,7 +8,7 @@ public class BaseIntegrationTestClass : IClassFixture<TestingWebApplicationFacto
 
     public BaseIntegrationTestClass(TestingWebApplicationFactory factory)
     {
-        _client = factory.CreateClient();
+        _client = factory.WebHost.CreateClient();
     }
 
     protected async Task<TViewModel> AddModelToDatabase<TViewModel, TCreationModel>(string endpoint, TCreationModel data)
