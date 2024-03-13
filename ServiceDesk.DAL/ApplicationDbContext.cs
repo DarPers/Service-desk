@@ -6,6 +6,10 @@ public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
+        if (Database.IsRelational())
+        {
+            Database.Migrate();
+        }
     }
 
     public DbSet<User> Users { get; set; }
