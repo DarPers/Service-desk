@@ -20,7 +20,6 @@ public static class TestUserViewModel
         LastName = "Barkov",
         Email = "daniel@gmail.com",
     };
-<<<<<<< HEAD
 
     public static UserViewModel UpdateUserViewModel => new()
     {
@@ -29,6 +28,4 @@ public static class TestUserViewModel
         LastName = "Barkov",
         Email = "Maxim@gmail.com",
     };
-=======
->>>>>>> 4daacdf (add integration tests for ticket controller (#45))
 }

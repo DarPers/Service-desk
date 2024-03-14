@@ -2,10 +2,7 @@
 using System.Net.Http.Json;
 
 namespace ServiceDesk.IntegrationTests;
-<<<<<<< HEAD
 
-=======
->>>>>>> 4daacdf (add integration tests for ticket controller (#45))
 public class BaseIntegrationTestClass : IClassFixture<TestingWebApplicationFactory>
 {
     protected readonly HttpClient _client;
