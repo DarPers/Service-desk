@@ -130,7 +130,7 @@ public class TicketsControllerIntegrationTests : BaseIntegrationTestClass
     }
 
     [Fact]
-    public async Task UpdateTicket_InvalidTicketId_ReturnUpdatedTicket()
+    public async Task UpdateTicket_InvalidTicketId_ReturnNotFound()
     {
         //Arrange
         var user = TestUserViewModel.CreateUserViewModel;
