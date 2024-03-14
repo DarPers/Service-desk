@@ -55,7 +55,7 @@ public class ExecutionRequestControllerIntegrationTests : BaseIntegrationTestCla
     }
 
     [Fact]
-    public async Task CreateExecutionRequest_InvalidTicketId_ReturnBadRequest()
+    public async Task CreateExecutionRequest_InvalidTicketId_ReturnNotFound()
     {
         //Arrange
         var user = await AddModelToDatabase<UserViewModel, UserRegistrationViewModel>(Endpoints.UsersEndpoint,
@@ -75,7 +75,7 @@ public class ExecutionRequestControllerIntegrationTests : BaseIntegrationTestCla
 
 
     [Fact]
-    public async Task CreateExecutionRequest_InvalidUserId_ReturnBadRequest()
+    public async Task CreateExecutionRequest_InvalidUserId_ReturnNotFound()
     {
         //Arrange
         var user = TestUserViewModel.CreateUserViewModel;
@@ -119,7 +119,7 @@ public class ExecutionRequestControllerIntegrationTests : BaseIntegrationTestCla
     }
 
     [Fact]
-    public async Task UpdateExecutionRequest_InvalidExecutionRequestModel_ReturnExecutionRequest()
+    public async Task UpdateExecutionRequest_InvalidExecutionRequestModel_ReturnNotFound()
     {
         //Arrange
         var user = TestUserViewModel.CreateUserViewModel;
@@ -140,7 +140,7 @@ public class ExecutionRequestControllerIntegrationTests : BaseIntegrationTestCla
     }
 
     [Fact]
-    public async Task UpdateExecutionRequest_InvalidExecutionRequestId_ReturnExecutionRequest()
+    public async Task UpdateExecutionRequest_InvalidExecutionRequestId_ReturnNotFound()
     {
         //Arrange
         var user = await AddModelToDatabase<UserViewModel, UserRegistrationViewModel>(Endpoints.UsersEndpoint,

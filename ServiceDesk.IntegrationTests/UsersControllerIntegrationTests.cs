@@ -62,7 +62,7 @@ public class UsersControllerIntegrationTests : BaseIntegrationTestClass
     }
 
     [Fact]
-    public async Task UpdateUser_InvalidIdUser_ReturnUpdatedUser()
+    public async Task UpdateUser_InvalidIdUser_ReturnNotFound()
     {
         //Arrange
         var user = TestUserViewModel.CreateUserViewModel;
