@@ -20,4 +20,12 @@ public static class TestUserViewModel
         LastName = "Barkov",
         Email = "daniel@gmail.com",
     };
+
+    public static UserViewModel UpdateUserViewModel => new()
+    {
+        Id = Guid.NewGuid(),
+        FirstName = "Maxim",
+        LastName = "Barkov",
+        Email = "Maxim@gmail.com",
+    };
 }

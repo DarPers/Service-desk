@@ -19,12 +19,11 @@ public class TicketsControllerIntegrationTests : BaseIntegrationTestClass
     {
         //Arrange
         var user = await AddModelToDatabase<UserViewModel, UserRegistrationViewModel>(Endpoints.UsersEndpoint, TestUserViewModel.RegistrationUser);
-
-        var newTicket = TestTicketViewModel.CreateTicket(user.Id);
         var newTickets = new List<TicketViewModel>();
 
         for (int i = 0; i < 5; i++)
         {
+            var newTicket = TestTicketViewModel.CreateTicket(user.Id);
             var ticket = await AddModelToDatabase<TicketViewModel, TicketCreationViewModel>(Endpoints.TicketsEndpoint, newTicket);
             newTickets.Add(ticket);
         }
@@ -36,10 +35,9 @@ public class TicketsControllerIntegrationTests : BaseIntegrationTestClass
 
         // Assert
         tickets.Should().NotBeNull();
-
-        for (int i = 0; i < tickets?.Count; i++)
+        foreach (var newTicket in newTickets)
         {
-            tickets[i].Id.Should().Be(newTickets[i].Id);
+            tickets?.Exists(p => p.Id == newTicket.Id).Should().Be(true);
         }
     }
 
@@ -132,7 +130,7 @@ public class TicketsControllerIntegrationTests : BaseIntegrationTestClass
     }
 
     [Fact]
-    public async Task UpdateTicket_InvalidTicketId_ReturnUpdatedTicket()
+    public async Task UpdateTicket_InvalidTicketId_ReturnNotFound()
     {
         //Arrange
         var user = TestUserViewModel.CreateUserViewModel;

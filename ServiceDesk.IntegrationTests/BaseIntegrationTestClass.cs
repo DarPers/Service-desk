@@ -2,6 +2,7 @@
 using System.Net.Http.Json;
 
 namespace ServiceDesk.IntegrationTests;
+
 public class BaseIntegrationTestClass : IClassFixture<TestingWebApplicationFactory>
 {
     protected readonly HttpClient _client;
