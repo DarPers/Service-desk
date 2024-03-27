@@ -6,17 +6,17 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - "ServiceDesk.API/ServiceDesk.sln"
-      - ".github/workflows/dotnet.yaml"
+      - ${{ env.PATH_TO_SOLUTION }}
+      - ${{ env.PATH_TO_YML }}
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    steps:
+    defaults:
+        run:
+          working-directory: ${{ env.WORKING_DIR }}
+    
+    steps:      
     - uses: actions/checkout@v3
-
-    - name: Set up working directory
-      run: cd ${{ env.WORKING_DIR }}
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
@@ -45,4 +45,5 @@ jobs:
         EXCLUDE_FROM_COVERAGE: "**/Program.cs, **/ApplicationDbContext.cs, **/Migrations/*, **/DI/*, **/Mapping/*, **/Validators/*"
         WORKING_DIR: "ServiceDesk.API"
         PATH_TO_YML: ".github/workflows/dotnet.yaml"
+        PATH_TO_SOLUTION: "ServiceDesk.API/ServiceDesk.sln"
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
