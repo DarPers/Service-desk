@@ -6,6 +6,7 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
+      - "ServiceDesk.API/ServiceDesk.sln"
       - ".github/workflows/dotnet.yaml"
 jobs:
   build:
