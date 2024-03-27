@@ -6,8 +6,8 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - ${{ PATH_TO_PROJECT }}
-      - ${{ PATH_TO_YML }}
+      - "${{ PATH_TO_PROJECT }}"
+      - "${{ PATH_TO_YML }}"
 
 jobs:
   build:
