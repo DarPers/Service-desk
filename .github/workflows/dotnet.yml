@@ -18,6 +18,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
+        dotnetBuildArguments: "ServiceDesk.API/ServiceDeskAPI/ServiceDeskAPI.csproj"
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
