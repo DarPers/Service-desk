@@ -21,7 +21,7 @@ jobs:
 
     - name: Restore dependencies
       run:
-        cd $PATH_TO_PROJECT
+        cd "$PATH_TO_PROJECT"
         dotnet restore
       
     - name: Build
