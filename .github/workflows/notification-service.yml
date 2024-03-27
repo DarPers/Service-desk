@@ -6,8 +6,8 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - "PATH_TO_PROJECT"
-      - "$PATH_TO_YML"
+      - "NotificationService/NotificationService/NotificationService.csproj"
+      - ".github/workflows/notification-service.yaml"
 
 jobs:
   build:
