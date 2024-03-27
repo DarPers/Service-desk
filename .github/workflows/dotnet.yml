@@ -6,8 +6,8 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - "${{ PATH_TO_PROJECT }}"
-      - "${{ PATH_TO_YML }}"
+      - $PATH_TO_PROJECT
+      - $PATH_TO_YML"
 
 jobs:
   build:
@@ -38,7 +38,7 @@ jobs:
         dotnetBuildArguments: --configuration Release
         dotnetTestArguments: --no-build --configuration Release --verbosity normal --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
         sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx" /d:sonar.coverage.exclusions="$EXCLUDE_FROM_COVERAGE" 
-      env: 
+    env: 
         EXCLUDE_FROM_COVERAGE: "**/Program.cs, **/ApplicationDbContext.cs, **/Migrations/*, **/DI/*, **/Mapping/*, **/Validators/*"
         PATH_TO_PROJECT: "ServiceDesk.API/ServiceDeskAPI/ServiceDeskAPI.csproj"
         PATH_TO_YML: ".github/workflows/dotnet.yaml"
