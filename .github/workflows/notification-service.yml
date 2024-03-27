@@ -1,4 +1,4 @@
-name: .NET
+name: NotificationService
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - "$PATH_TO_PROJECT"
+      - "PATH_TO_PROJECT"
       - "$PATH_TO_YML"
 
 jobs:
@@ -31,5 +31,5 @@ jobs:
 
     env: 
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      PATH_TO_PROJECT: "NotificationService/NotificationService/NotificationService.csproj"
+      PATH_TO_PROJECT: "NotificationService/NotificationService/**"
       PATH_TO_YML: ".github/workflows/notification-service.yaml"
