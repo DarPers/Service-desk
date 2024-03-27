@@ -24,9 +24,11 @@ jobs:
       run: dotnet restore
       
     - name: Build
+      working-directory: ${{ env.WORKING_DIR }}
       run: dotnet build --no-restore --configuration Release
       
     - name: Test
+      working-directory: ${{ env.WORKING_DIR }}
       run: dotnet test --no-build --verbosity normal --configuration Release
 
     - name: Sonar Scan
