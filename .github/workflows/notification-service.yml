@@ -12,6 +12,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+        run:
+          working-directory: ${{ env.WORKING_DIR }}
 
     steps:
     - uses: actions/checkout@v3
@@ -31,5 +34,5 @@ jobs:
 
     env: 
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      PATH_TO_PROJECT: "NotificationService/NotificationService/**"
+      WORKING_DIR: "NotificationService"
       PATH_TO_YML: ".github/workflows/notification-service.yaml"
