@@ -1,18 +1,17 @@
-﻿using System.Linq.Expressions;
-using AutoMapper;
-using ServiceDesk.BLL.Interfaces;
-using ServiceDesk.BLL.Services;
-using ServiceDesk.DAL.Entities;
-using ServiceDesk.DAL.GenericRepository;
+﻿using AutoMapper;
 using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
+using ServiceDesk.BLL.Interfaces;
 using ServiceDesk.BLL.Mapping;
 using ServiceDesk.BLL.Models;
+using ServiceDesk.BLL.Services;
+using ServiceDesk.DAL.Entities;
+using ServiceDesk.DAL.GenericRepository;
 using ServiceDesk.Domain.Enums;
 using ServiceDesk.Domain.Exceptions;
+using System.Linq.Expressions;
 using Xunit;
-using System.Net.Sockets;
 
 namespace ServiceDesk.Tests;
 
@@ -20,6 +19,7 @@ public class TicketServiceTests
 {
     private static readonly IGenericRepository<Ticket> _ticketRepository;
     private static readonly IGenericRepository<User> _userRepository;
+    private static readonly IMessageService _massageService;
     private static readonly IMapper _mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
     private static readonly ITicketService _ticketService;
 
@@ -27,8 +27,9 @@ public class TicketServiceTests
     {
         _ticketRepository = Substitute.For<IGenericRepository<Ticket>>();
         _userRepository = Substitute.For<IGenericRepository<User>>();
+        _massageService = Substitute.For<IMessageService>();
 
-        _ticketService = new TicketService(_ticketRepository, _userRepository, _mapper);
+        _ticketService = new TicketService(_ticketRepository, _userRepository, _mapper, _massageService);
     }
 
     [Fact]
@@ -242,7 +243,7 @@ public class TicketServiceTests
     }
 
     [Fact]
-    public async Task UpdateModel_ValidModel_ShouldExecuteUpdateModel() //
+    public async Task UpdateModel_ValidModel_ShouldExecuteUpdateModel()
     {
         //Arrange
         var id = new Guid();
@@ -288,10 +289,19 @@ public class TicketServiceTests
     public async Task SetTicketStatus_ValidModel_ShouldExecuteUpdateModel()
     {
         //Arrange
-        var id = new Guid();
-        var ticket = new Ticket();
+        var id = Guid.NewGuid();
+        var ticket = new Ticket
+        {
+            UserId = Guid.NewGuid(),
+        };
         var status = Status.Free;
+        var user = new User
+        {
+            Id = Guid.NewGuid(),
+            Email = "example@gmail.com"
+        };
         _ticketRepository.GetEntityByIdAsync(id, default).Returns(ticket);
+        _userRepository.GetEntityByIdAsync(ticket.UserId, default).Returns(user);
 
         //Act
         var result = await _ticketService.SetTicketStatus(id, status, default);

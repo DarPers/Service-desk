@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceDesk.Domain", "Servi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceDesk.Tests", "ServiceDesk.Tests\ServiceDesk.Tests.csproj", "{F0DF5D89-5BD2-472B-B90F-F70E157F6675}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceDesk.IntegrationTests", "ServiceDesk.IntegrationTests\ServiceDesk.IntegrationTests.csproj", "{4E38895A-4ADA-4B94-8EF0-E5C5D39B07BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceDesk.IntegrationTests", "ServiceDesk.IntegrationTests\ServiceDesk.IntegrationTests.csproj", "{4E38895A-4ADA-4B94-8EF0-E5C5D39B07BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
