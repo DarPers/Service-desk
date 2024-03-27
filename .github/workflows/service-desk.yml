@@ -1,4 +1,4 @@
-name: .NET
+name: ServiceDesk
 on:
   push:
     branches: [ "main" ]
