@@ -1,5 +1,9 @@
 name: .NET
-
+env: 
+    PATH_TO_YML: ".github/workflows/dotnet.yaml"
+    PATH_TO_SOLUTION: "ServiceDesk.API/ServiceDesk.sln"
+    EXCLUDE_FROM_COVERAGE: "**/Program.cs, **/ApplicationDbContext.cs, **/Migrations/*, **/DI/*, **/Mapping/*, **/Validators/*"
+    WORKING_DIR: "ServiceDesk.API"
 on:
   push:
     branches: [ "main" ]
@@ -8,6 +12,7 @@ on:
     paths:
       - ${{ env.PATH_TO_SOLUTION }}
       - ${{ env.PATH_TO_YML }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -41,9 +46,6 @@ jobs:
         dotnetBuildArguments: --configuration Release
         dotnetTestArguments: --no-build --configuration Release --verbosity normal --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
         sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx" /d:sonar.coverage.exclusions="$EXCLUDE_FROM_COVERAGE" 
-    env: 
-        EXCLUDE_FROM_COVERAGE: "**/Program.cs, **/ApplicationDbContext.cs, **/Migrations/*, **/DI/*, **/Mapping/*, **/Validators/*"
-        WORKING_DIR: "ServiceDesk.API"
         PATH_TO_YML: ".github/workflows/dotnet.yaml"
         PATH_TO_SOLUTION: "ServiceDesk.API/ServiceDesk.sln"
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
