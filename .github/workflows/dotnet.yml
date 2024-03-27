@@ -6,8 +6,8 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - $PATH_TO_PROJECT
-      - $PATH_TO_YML
+      - "ServiceDesk.API/ServiceDeskAPI/ServiceDeskAPI.csproj"
+      - ".github/workflows/dotnet.yaml"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,7 +20,9 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      run: dotnet restore
+      run:
+        cd $PATH_TO_PROJECT
+        dotnet restore
       
     - name: Build
       run: dotnet build --no-restore --configuration Release
