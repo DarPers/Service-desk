@@ -1,6 +1,6 @@
-﻿using System.Net;
+﻿using ServiceDesk.Domain.Exceptions;
 using ServiceDeskAPI.ViewModels;
-using ServiceDesk.Domain.Exceptions;
+using System.Net;
 
 namespace ServiceDeskAPI.Middlewares;
 
@@ -37,6 +37,7 @@ public class ExceptionHandlingMiddleware
             StatusCode = exception switch
             {
                 EntityIsNullException => HttpStatusCode.NotFound,
+                ArgumentNullException => HttpStatusCode.BadRequest,
                 _ => HttpStatusCode.InternalServerError,
             }
         };

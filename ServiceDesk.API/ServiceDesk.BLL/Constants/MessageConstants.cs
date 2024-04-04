@@ -23,10 +23,14 @@ public static class MessageConstants
         {
             case Status.InProgress:
                 return CreateTicketMessageWithName(ticket.Name) + "in progress!";
+            case Status.Free:
+                return CreateTicketMessageWithName(ticket.Name) + "has a free status!";
+            case Status.None:
+                return CreateTicketMessageWithName(ticket.Name) + "has not status!";
             case Status.Ready:
                 return CreateTicketMessageWithName(ticket.Name) + "is ready!";
             default:
-                return CreateTicketMessageWithName(ticket.Name) + $"has {ticket.Status} status now!";
+                throw new ArgumentNullException("There is no such type of status!");
         }
     }
 }
