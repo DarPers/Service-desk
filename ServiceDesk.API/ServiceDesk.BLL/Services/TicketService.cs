@@ -12,13 +12,15 @@ public class TicketService : GenericService<TicketModel, Ticket>, ITicketService
 {
     private readonly IGenericRepository<Ticket> _ticketRepository;
     private readonly IGenericRepository<User> _userRepository;
+    private readonly IMessageService _massageService;
     private readonly IMapper _mapper;
 
-    public TicketService(IGenericRepository<Ticket> ticketRepository, IGenericRepository<User> userRepository, IMapper mapper) 
+    public TicketService(IGenericRepository<Ticket> ticketRepository, IGenericRepository<User> userRepository, IMapper mapper, IMessageService massageService)
         : base(ticketRepository, mapper)
     {
         _ticketRepository = ticketRepository;
         _userRepository = userRepository;
+        _massageService = massageService;
         _mapper = mapper;
     }
 
@@ -28,7 +30,7 @@ public class TicketService : GenericService<TicketModel, Ticket>, ITicketService
 
         EntityIsNullException.ThrowIfNull(ticket);
 
-        return ticket.Status;
+        return ticket!.Status;
     }
 
     public async Task<TicketModel> SetTicketStatus(Guid id, Status newStatus, CancellationToken cancellationToken)
@@ -39,6 +41,13 @@ public class TicketService : GenericService<TicketModel, Ticket>, ITicketService
 
         ticket.Status = newStatus;
         await _ticketRepository.UpdateEntityAsync(ticket, cancellationToken);
+
+        var user = await _userRepository.GetEntityByIdAsync(ticket.UserId, cancellationToken);
+
+        EntityIsNullException.ThrowIfNull(user);
+
+        await _massageService.SendCommandChangedStatus(ticket, user.Email);
+
         return _mapper.Map<TicketModel>(ticket);
     }
 
@@ -48,6 +57,10 @@ public class TicketService : GenericService<TicketModel, Ticket>, ITicketService
 
         EntityIsNullException.ThrowIfNull(user);
 
+        var emails = await GetExecutorsEmails(cancellationToken);
+
+        await _massageService.SendCommandTicketAdded(model, emails);
+
         return await base.CreateModelAsync(model, cancellationToken);
     }
 
@@ -55,5 +68,11 @@ public class TicketService : GenericService<TicketModel, Ticket>, ITicketService
     {
         var ticketEntities = await _ticketRepository.GetEntitiesByPredicateAsync(p => p.UserId == id, cancellationToken);
         return _mapper.Map<IEnumerable<TicketModel>>(ticketEntities);
+    }
+
+    private async Task<List<string>> GetExecutorsEmails(CancellationToken cancellationToken)
+    {
+        var executors = await _userRepository.GetEntitiesByPredicateAsync(i => i.Role == Role.OperationAdministrator || i.Role == Role.SystemAdministrator, cancellationToken);
+        return executors.Select(executor => executor.Email).ToList();
     }
 }

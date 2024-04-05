@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using MassTransit;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ServiceDesk.DAL;
@@ -24,6 +25,8 @@ public class TestingWebApplicationFactory
                 {
                     options.UseInMemoryDatabase("InMemoryDbContextTest");
                 });
+
+                services.AddMassTransitTestHarness();
             }));
     }
 }
