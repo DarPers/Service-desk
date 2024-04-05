@@ -39,12 +39,14 @@ public class TicketService : GenericService<TicketModel, Ticket>, ITicketService
 
         EntityIsNullException.ThrowIfNull(ticket);
 
-        ticket!.Status = newStatus;
+        ticket.Status = newStatus;
         await _ticketRepository.UpdateEntityAsync(ticket, cancellationToken);
 
         var user = await _userRepository.GetEntityByIdAsync(ticket.UserId, cancellationToken);
 
-        await _massageService.SendCommandChangedStatus(ticket, user!.Email);
+        EntityIsNullException.ThrowIfNull(user);
+
+        await _massageService.SendCommandChangedStatus(ticket, user.Email);
 
         return _mapper.Map<TicketModel>(ticket);
     }
