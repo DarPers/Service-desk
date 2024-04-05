@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - "WarehouseAPI\WarehouseAPI/WarehouseAPI.csproj"
+      - "WarehouseAPI/WarehouseAPI/WarehouseAPI.csproj"
       - ".github/workflows/warehouse-service.yml"
 
 jobs:
