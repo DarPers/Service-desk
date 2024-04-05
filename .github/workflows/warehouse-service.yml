@@ -1,0 +1,43 @@
+name: WarehouseService
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - "WarehouseAPI\WarehouseAPI/WarehouseAPI.csproj"
+      - ".github/workflows/warehouse-service.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+        run:
+          working-directory: ${{ env.WORKING_DIR }}
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+      
+    - name: Sonar Scan
+      uses: highbyte/sonarscan-dotnet@v2.3.0
+      with:
+        sonarProjectKey: DarPers_Service-desk
+        sonarProjectName: Service-desk
+        sonarOrganization: darpers
+        dotnetBuildArguments: ${{ env.WORKING_DIR }} --configuration Release
+        dotnetTestArguments: ${{ env.WORKING_DIR }} --no-build --configuration Release --verbosity normal --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+        sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
+    env: 
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      WORKING_DIR: "WarehouseAPI"
