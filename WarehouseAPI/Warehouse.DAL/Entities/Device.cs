@@ -1,8 +1,10 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
+using Warehouse.DAL.Attributes;
 
 namespace Warehouse.DAL.Entities;
 
 [BsonIgnoreExtraElements]
+[BsonCollection("Devices")]
 public class Device
 {
     public Guid Id { get; set; }

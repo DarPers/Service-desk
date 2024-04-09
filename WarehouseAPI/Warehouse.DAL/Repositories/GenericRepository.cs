@@ -9,14 +9,14 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 {
     private readonly IMongoCollection<TEntity> _collection;
 
-    public GenericRepository(IMongoDatabase mongoDatabase)
+    public GenericRepository(IApplicationMongoDbContext<TEntity> context)
     {
-        _collection = mongoDatabase.GetCollection<TEntity>(typeof(TEntity).Name);
+        _collection = context.GetCollection();
     }
 
     public async Task<TEntity> AddEntityAsync(TEntity entity, CancellationToken cancellationToken)
     {
-        await _collection.InsertOneAsync(entity, cancellationToken);
+        await _collection.InsertOneAsync(entity, null, cancellationToken);
         return entity;
     }
 
