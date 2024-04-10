@@ -50,7 +50,7 @@ public class GenericApiController<TViewModel, TAddedViewModel, TUpdatedViewModel
     }
 
     /// <summary>
-    /// Get device with certain name
+    /// Get devices with certain name
     /// </summary>
     /// <param name="name">Device name</param>
     /// <param name="cancellationToken"></param>
