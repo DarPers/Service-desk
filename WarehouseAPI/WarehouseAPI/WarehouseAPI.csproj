@@ -25,4 +25,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Warehouse.BLL\Warehouse.BLL.csproj" />
   </ItemGroup>
+
 </Project>
