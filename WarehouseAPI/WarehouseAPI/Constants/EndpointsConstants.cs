@@ -1,6 +1,6 @@
 ﻿namespace WarehouseAPI.Constants;
 
-public class EndpointsConstants
+public static class EndpointsConstants
 {
     public const string RequestWithId = "{id:Guid}";
 
