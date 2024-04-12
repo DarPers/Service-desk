@@ -8,7 +8,7 @@ using Warehouse.DAL.DI;
 using Warehouse.DAL.Entities;
 
 namespace Warehouse.BLL.DI;
-public static class DependencyRegisterBLL
+public static class DependencyRegisterBll
 {
     public static IServiceCollection AddBusinessLogicLevelServices(this IServiceCollection serviceCollection,
         IConfiguration configuration)
