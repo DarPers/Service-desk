@@ -2,13 +2,15 @@
 
 public class DeviceUpdatedViewModel
 {
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
-    public string SerialNumber { get; set; }
+    public string? SerialNumber { get; set; }
 
-    public string ModelName { get; set; }
+    public string? Brand { get; set; }
 
-    public object Characteristics { get; set; }
+    public string? ModelName { get; set; }
+
+    public object? Characteristics { get; set; }
 
     public Guid? UserId { get; set; }
 
