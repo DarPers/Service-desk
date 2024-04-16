@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseAPI", "WarehouseAPI\WarehouseAPI.csproj", "{B69C722D-86DD-40A2-841F-A2D0B3181B7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseAPI", "WarehouseAPI\WarehouseAPI.csproj", "{B69C722D-86DD-40A2-841F-A2D0B3181B7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse.DAL", "Warehouse.DAL\Warehouse.DAL.csproj", "{666893E7-9801-47FE-904D-92B7EF291B2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Warehouse.DAL", "Warehouse.DAL\Warehouse.DAL.csproj", "{666893E7-9801-47FE-904D-92B7EF291B2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse.BLL", "Warehouse.BLL\Warehouse.BLL.csproj", "{C892B8FF-1E9C-4270-9110-25843EA85350}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Warehouse.BLL", "Warehouse.BLL\Warehouse.BLL.csproj", "{C892B8FF-1E9C-4270-9110-25843EA85350}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseAPI.Shared", "WarehouseAPI.Shared\WarehouseAPI.Shared.csproj", "{56015204-80B8-4669-8D46-FA15DE030E91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{C892B8FF-1E9C-4270-9110-25843EA85350}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C892B8FF-1E9C-4270-9110-25843EA85350}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C892B8FF-1E9C-4270-9110-25843EA85350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56015204-80B8-4669-8D46-FA15DE030E91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56015204-80B8-4669-8D46-FA15DE030E91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56015204-80B8-4669-8D46-FA15DE030E91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56015204-80B8-4669-8D46-FA15DE030E91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
