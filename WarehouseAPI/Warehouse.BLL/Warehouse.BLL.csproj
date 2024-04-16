@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Warehouse.DAL\Warehouse.DAL.csproj" />
+    <ProjectReference Include="..\WarehouseAPI.Shared\WarehouseAPI.Shared.csproj" />
   </ItemGroup>
 
 </Project>

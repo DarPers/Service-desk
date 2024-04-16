@@ -3,6 +3,7 @@ using Warehouse.BLL.Interfaces;
 using Warehouse.BLL.Models;
 using Warehouse.DAL.Entities;
 using Warehouse.DAL.Interfaces;
+using WarehouseAPI.Shared.Exceptions;
 
 namespace Warehouse.BLL.Services;
 public class GenericService<TModel, TEntity> : IGenericService<TModel> where TModel : DeviceModel where TEntity : Device
@@ -52,7 +53,7 @@ public class GenericService<TModel, TEntity> : IGenericService<TModel> where TMo
 
         if (entity == null)
         {
-            throw new NullReferenceException("Device does not exist!");
+            throw new NullEntityException("Device does not exist!");
         }
 
         model.Id = id;

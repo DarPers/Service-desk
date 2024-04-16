@@ -3,6 +3,7 @@ using Warehouse.BLL.Interfaces;
 using Warehouse.BLL.Models;
 using Warehouse.DAL.Entities;
 using Warehouse.DAL.Interfaces;
+using WarehouseAPI.Shared.Exceptions;
 
 namespace Warehouse.BLL.Services;
 public class DeviceService : GenericService<DeviceModel, Device>, IDeviceService
@@ -22,7 +23,7 @@ public class DeviceService : GenericService<DeviceModel, Device>, IDeviceService
 
         if (device == null)
         {
-            throw new NullReferenceException("Device does not exist!");
+            throw new NullEntityException("Device does not exist!");
         }
 
         if (userId != null)
